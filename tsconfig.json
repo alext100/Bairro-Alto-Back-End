@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "target": "es6",
+    "lib": ["ES2015", "DOM"],
+    "module": "commonjs",
+    "rootDir": "./",
+    "outDir": "./build",
+    "strict": true,
+    "esModuleInterop": true,
+    "noEmitOnError": true
+  },
+  "include": ["./**/*.ts", ".eslintrc.js", "./build/**/*.ts"],
+  "exclude": ["./build", "node_modules"]
+}
