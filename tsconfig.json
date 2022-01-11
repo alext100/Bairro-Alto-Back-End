@@ -3,12 +3,13 @@
     "sourceMap": true,
     "target": "es6",
     "lib": ["ES2015", "DOM"],
-    "module": "commonjs",
+    "module": "ES2020",
     "rootDir": "./",
     "outDir": "./build",
     "strict": true,
     "esModuleInterop": true,
-    "noEmitOnError": true
+    "noEmitOnError": true,
+    "moduleResolution": "Node"
   },
   "include": ["./**/*.ts", ".eslintrc.js", "./build/**/*.ts"],
   "exclude": ["./build", "node_modules"]

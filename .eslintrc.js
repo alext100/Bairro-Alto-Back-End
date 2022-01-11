@@ -3,12 +3,15 @@ module.exports = {
     es2021: true,
     node: true,
     jest: true,
+    browser: true,
+    commonjs: true,
   },
-  extends: ["airbnb-base", "prettier"],
+  extends: ["airbnb-base", "airbnb-typescript/base", "prettier"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 13,
     sourceType: "module",
+    project: "./tsconfig.json",
   },
   plugins: ["@typescript-eslint"],
   rules: {
