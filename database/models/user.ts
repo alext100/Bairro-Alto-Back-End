@@ -1,4 +1,5 @@
-import { model, Schema, Types } from "mongoose";
+import mongoose from "mongoose";
+const { model, Schema, Types } = mongoose;
 
 interface UserSchemaTypes {
   email: string;
@@ -14,7 +15,7 @@ interface UserSchemaTypes {
   homeworkToCheck: Array<object>;
 }
 
-const userSchema: Schema<UserSchemaTypes> = new Schema({
+const userSchema = new Schema({
   password: {
     type: String,
     required: true,
