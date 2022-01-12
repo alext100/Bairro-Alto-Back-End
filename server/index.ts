@@ -5,6 +5,12 @@ import express from "express";
 import morgan from "morgan";
 import { ErrorType, PortType } from "../utils/types.js";
 
+import userRoutes from "./routes/userRoutes.js";
+import {
+  generalErrorHandler,
+  notFoundErrorHandler,
+} from "./middlewares/error.js";
+
 const debug = getDebug("bairro:server");
 debug.enabled = true;
 
@@ -33,5 +39,10 @@ export const initializeServer = (port: PortType) =>
       debug(chalk.yellow("Server express disconnected"));
     });
   });
+
+app.use("/user", userRoutes);
+
+app.use(notFoundErrorHandler);
+app.use(generalErrorHandler);
 
 export default { app };
