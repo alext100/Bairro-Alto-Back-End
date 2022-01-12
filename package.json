@@ -2,7 +2,7 @@
   "name": "backend-bairro-alto",
   "version": "1.0.0",
   "description": "",
-  "main": "build/index.js",
+  "main": "build/src/index.js",
   "type": "module",
   "node": "^12.20.0 || ^14.13.1 || >=16.0.0",
   "scripts": {
