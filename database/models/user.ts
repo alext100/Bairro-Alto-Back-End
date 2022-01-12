@@ -1,0 +1,73 @@
+import { model, Schema, Types } from "mongoose";
+
+interface UserSchemaTypes {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  adminAccess: boolean;
+  teacherAccess: boolean;
+  studentAccess: boolean;
+  groups: Array<object>;
+  studentErrors: Array<object>;
+  image: string;
+  homeworkToCheck: Array<object>;
+}
+
+const userSchema: Schema<UserSchemaTypes> = new Schema({
+  password: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+    default:
+      "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg",
+  },
+  adminAccess: {
+    type: Boolean,
+    default: false,
+  },
+  teacherAccess: {
+    type: Boolean,
+    default: false,
+  },
+  studentAccess: {
+    type: Boolean,
+    default: false,
+  },
+  groups: [
+    {
+      type: [Types.ObjectId],
+      ref: "Group",
+    },
+  ],
+  studentErrors: [
+    {
+      type: [Types.ObjectId],
+      ref: "Error",
+    },
+  ],
+  homeworkToCheck: [
+    {
+      type: [Types.ObjectId],
+      ref: "Homework",
+    },
+  ],
+});
+
+const User = model<UserSchemaTypes>("User", userSchema, "Users");
+
+export default User;
