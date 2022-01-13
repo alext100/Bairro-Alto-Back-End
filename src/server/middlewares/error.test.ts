@@ -1,5 +1,5 @@
 import { ValidationError } from "express-validation";
-import { mockRequest, mockResponse } from "../../utils/mocks.js";
+import { mockRequest, mockResponse } from "../../utils/mocks";
 import { generalErrorHandler, notFoundErrorHandler } from "./error";
 
 export default interface IError extends ValidationError {
