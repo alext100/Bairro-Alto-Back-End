@@ -87,6 +87,18 @@ const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
+const getAllUsersGroups = async (req: IUserRequest, res: Response) => {
+  try {
+    const groups = await User.findById(req.userId)
+      .populate("groups")
+      .select("groups");
+    res.json(groups);
+  } catch (error) {
+    res.status(404);
+    return res.send(error);
+  }
+};
+
 export {
   getUsers,
   getOneUserById,
@@ -94,4 +106,5 @@ export {
   addErrorToUser,
   getAllTeachers,
   deleteUser,
+  getAllUsersGroups,
 };
