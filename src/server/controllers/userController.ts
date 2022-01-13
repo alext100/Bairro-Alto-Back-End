@@ -126,6 +126,21 @@ const deleteGroupFromUser = async (req: IUserRequest, res: Response) => {
   }
 };
 
+const deleteErrorFromUser = async (req: Request, res: Response) => {
+  const { id: userId } = req.params;
+  const userErrorId = req.body.id;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(userId, {
+      $pull: { studentErrors: userErrorId },
+    });
+    if (!updatedUser) return res.sendStatus(404);
+    res.json(updatedUser.id);
+  } catch (error) {
+    (error as ErrorType).code = 500;
+    return res.send(error);
+  }
+};
+
 export {
   getUsers,
   getOneUserById,
@@ -136,4 +151,5 @@ export {
   getAllUsersGroups,
   getAllUserErrors,
   deleteGroupFromUser,
+  deleteErrorFromUser,
 };
