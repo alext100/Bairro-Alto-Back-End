@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import * as express from "express";
 
 export type ErrorType = {
   code?: string | number;
@@ -15,3 +16,7 @@ export type TransformTypes = {
   _id?: typeof mongoose.Schema.Types.String;
   __v?: typeof mongoose.Schema.Types.String;
 };
+
+export interface IUserRequest extends express.Request {
+  userId?: any;
+}
