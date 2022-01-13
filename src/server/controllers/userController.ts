@@ -99,6 +99,19 @@ const getAllUsersGroups = async (req: IUserRequest, res: Response) => {
   }
 };
 
+const getAllUserErrors = async (req: Request, res: Response) => {
+  const { id: userId } = req.params;
+  try {
+    const errors = await User.findById(userId)
+      .populate("studentErrors")
+      .select("studentErrors");
+    res.json(errors);
+  } catch (error) {
+    res.status(404);
+    return res.send(error);
+  }
+};
+
 export {
   getUsers,
   getOneUserById,
@@ -107,4 +120,5 @@ export {
   getAllTeachers,
   deleteUser,
   getAllUsersGroups,
+  getAllUserErrors,
 };
