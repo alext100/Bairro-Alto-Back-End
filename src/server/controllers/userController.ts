@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { Types } from "mongoose";
+import StudentError from "../../database/models/studentError.js";
 import User from "../../database/models/user.js";
 import { ErrorType, IUserRequest } from "../../utils/types.js";
 
@@ -45,4 +46,28 @@ const addGroupToUser = async (req: IUserRequest, res: Response) => {
   }
 };
 
-export { getUsers, getOneUserById, addGroupToUser };
+const addErrorToUser = async (req: Request, res: Response) => {
+  const { errorType, errorMessage, errorComment, date } = req.body;
+  try {
+    const newStudentError = await StudentError.create({
+      errorType,
+      errorMessage,
+      errorComment,
+      date,
+    });
+    if (!newStudentError) return res.sendStatus(404);
+    const { id: userId } = req.params;
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $push: { studentErrors: newStudentError.id } },
+      { new: true }
+    );
+    if (!updatedUser) return res.sendStatus(404);
+    return res.json(updatedUser);
+  } catch (error) {
+    (error as ErrorType).code = 500;
+    return res.send(error);
+  }
+};
+
+export { getUsers, getOneUserById, addGroupToUser, addErrorToUser };
