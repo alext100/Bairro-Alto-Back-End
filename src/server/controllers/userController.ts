@@ -70,4 +70,16 @@ const addErrorToUser = async (req: Request, res: Response) => {
   }
 };
 
-export { getUsers, getOneUserById, addGroupToUser, addErrorToUser };
+const getAllTeachers = async (req: Request, res: Response) => {
+  const users = await User.find();
+  const teachers = users.filter((teacher) => teacher.teacherAccess === true);
+  res.json(teachers);
+};
+
+export {
+  getUsers,
+  getOneUserById,
+  addGroupToUser,
+  addErrorToUser,
+  getAllTeachers,
+};
