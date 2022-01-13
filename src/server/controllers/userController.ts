@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
+import { Types } from "mongoose";
 import User from "../../database/models/user.js";
-import { ErrorType } from "../../utils/types.js";
+import { ErrorType, IUserRequest } from "../../utils/types.js";
 
 const getUsers = async (req: Request, res: Response) => {
   const users = await User.find();
@@ -28,4 +29,20 @@ const getOneUserById = async (
   }
 };
 
-export { getUsers, getOneUserById };
+const addGroupToUser = async (req: IUserRequest, res: Response) => {
+  const { id: groupId } = req.params;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.userId,
+      { $push: { groups: new Types.ObjectId(groupId) } },
+      { new: true }
+    );
+    if (!updatedUser) return res.sendStatus(404);
+    res.json(updatedUser);
+  } catch (error) {
+    (error as ErrorType).code = 500;
+    return res.send(error);
+  }
+};
+
+export { getUsers, getOneUserById, addGroupToUser };
