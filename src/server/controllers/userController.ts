@@ -76,10 +76,22 @@ const getAllTeachers = async (req: Request, res: Response) => {
   res.json(teachers);
 };
 
+const deleteUser = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    await User.findByIdAndDelete(id);
+    res.json(200);
+  } catch (error) {
+    res.status(500);
+    return res.send(error);
+  }
+};
+
 export {
   getUsers,
   getOneUserById,
   addGroupToUser,
   addErrorToUser,
   getAllTeachers,
+  deleteUser,
 };
