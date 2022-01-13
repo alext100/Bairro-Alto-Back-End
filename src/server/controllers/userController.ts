@@ -112,6 +112,20 @@ const getAllUserErrors = async (req: Request, res: Response) => {
   }
 };
 
+const deleteGroupFromUser = async (req: IUserRequest, res: Response) => {
+  const { id: groupId } = req.params;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.userId, {
+      $pull: { groups: groupId },
+    });
+    if (!updatedUser) return res.sendStatus(404);
+    res.json(updatedUser);
+  } catch (error) {
+    (error as ErrorType).code = 500;
+    return res.send(error);
+  }
+};
+
 export {
   getUsers,
   getOneUserById,
@@ -121,4 +135,5 @@ export {
   deleteUser,
   getAllUsersGroups,
   getAllUserErrors,
+  deleteGroupFromUser,
 };
