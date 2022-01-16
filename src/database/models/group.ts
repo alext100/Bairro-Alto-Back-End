@@ -5,6 +5,7 @@ interface GroupSchemaTypes {
   members: Array<object>;
   homeworkToDo: object;
   lessons: Array<object>;
+  groupErrors: Array<object>;
 }
 
 const groupSchema: Schema<GroupSchemaTypes> = new Schema({
@@ -27,6 +28,12 @@ const groupSchema: Schema<GroupSchemaTypes> = new Schema({
     {
       type: [Types.ObjectId],
       ref: "Lesson",
+    },
+  ],
+  groupErrors: [
+    {
+      type: [Types.ObjectId],
+      ref: "Error",
     },
   ],
 });

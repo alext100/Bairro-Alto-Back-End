@@ -2,7 +2,11 @@ import { Request } from "express";
 import StudentError from "../../database/models/studentError";
 import User from "../../database/models/user";
 import { mockRequest, mockResponse } from "../../utils/mocks";
-import { getRandomUser, getRandomUsers } from "../../utils/factory";
+import {
+  getRandomError,
+  getRandomUser,
+  getRandomUsers,
+} from "../../utils/factory";
 import {
   addErrorToUser,
   addGroupToUser,
@@ -14,6 +18,7 @@ import {
   getAllUsersGroups,
   getOneUserById,
   getUsers,
+  updateGroupError,
 } from "./userController";
 
 jest.mock("../../database/models/user");
@@ -438,6 +443,51 @@ describe("Given deleteErrorFromUser controller", () => {
       await deleteErrorFromUser(req, res);
 
       expect(res.send).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe("Given updateStudentError function", () => {
+  const req = mockRequest();
+  const res = mockResponse();
+  const updatedError = getRandomError();
+  beforeEach(() => {
+    req.params = {
+      id: "619f6070a4aewrb3d6555etr",
+    };
+    req.body = updatedError;
+
+    res.send = jest.fn();
+    res.sendStatus = jest.fn();
+  });
+
+  describe("When it receives a correct studentError id and a studentError", () => {
+    test("Then it should invoke studentError.findByIdAndUpdate with that studentError", async () => {
+      StudentError.findByIdAndUpdate = jest
+        .fn()
+        .mockResolvedValue(updatedError);
+      await updateGroupError(req, res);
+
+      expect(res.json).toHaveBeenCalledWith(updatedError);
+    });
+  });
+
+  describe("When it receives a non existent studentError", () => {
+    test("Then it should invoke res.sendStatus with 404 error.code", async () => {
+      StudentError.findByIdAndUpdate = jest.fn().mockResolvedValue(undefined);
+      await updateGroupError(req, res);
+
+      expect(res.sendStatus).toHaveBeenCalledWith(404);
+    });
+  });
+
+  describe("When it rejected", () => {
+    test("Then it should invoke res.status with error.code 500", async () => {
+      const error = new Error("Error");
+      StudentError.findByIdAndUpdate = jest.fn().mockRejectedValue(error);
+      await updateGroupError(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(500);
     });
   });
 });
