@@ -10,7 +10,6 @@ interface UserSchemaTypes {
   teacherAccess: boolean;
   studentAccess: boolean;
   groups: Array<object>;
-  studentErrors: Array<object>;
   image: string;
   homeworkToCheck: Array<object>;
 }
@@ -53,12 +52,6 @@ const userSchema = new Schema({
     {
       type: [Types.ObjectId],
       ref: "Group",
-    },
-  ],
-  studentErrors: [
-    {
-      type: [Types.ObjectId],
-      ref: "Error",
     },
   ],
   homeworkToCheck: [
