@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
+import { IUserRequest } from "./types";
 
 export const mockRequest = () => {
-  const req = {} as Request;
+  const req = {} as IUserRequest;
   return req;
 };
 export const mockResponse = () => {
