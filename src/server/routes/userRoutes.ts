@@ -12,6 +12,7 @@ import {
   getAllUsersGroups,
   getOneUserById,
   getUsers,
+  updateGroupError,
 } from "../controllers/userController.js";
 import auth from "../middlewares/auth.js";
 import paths from "../paths/paths.js";
@@ -31,6 +32,8 @@ router.patch(paths.addGroupToUser, auth, addGroupToUser);
 router.patch(paths.addErrorToUser, addErrorToUser);
 router.patch(paths.deleteGroupFromUser, auth, deleteGroupFromUser);
 router.patch(paths.deleteErrorFromUser, deleteErrorFromUser);
+
+router.put(paths.update, updateGroupError);
 
 router.delete(paths.delete, deleteUser);
 
