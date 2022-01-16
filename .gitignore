@@ -109,3 +109,5 @@ build
 .vscode/
 
 .scannerwork/
+
+jest.config.jsee

@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "target": "es6",
+    "module": "es6",
+    "target": "es5",
     "lib": ["ES2015", "DOM"],
-    "module": "ES2020",
     "rootDir": "./",
     "outDir": "./build",
     "strict": true,
