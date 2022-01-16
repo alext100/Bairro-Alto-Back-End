@@ -1,4 +1,5 @@
-import { model, Schema } from "mongoose";
+import mongoose from "mongoose";
+const { model, Schema } = mongoose;
 
 interface StudentErrorSchemaTypes {
   errorType: string;
@@ -7,7 +8,7 @@ interface StudentErrorSchemaTypes {
   date?: string;
 }
 
-const studentErrorSchema: Schema<StudentErrorSchemaTypes> = new Schema({
+const studentErrorSchema = new Schema({
   errorType: {
     type: String,
     required: true,
