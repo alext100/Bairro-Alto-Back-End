@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { Types } from "mongoose";
-import StudentError from "../../database/models/studentError.js";
-import User from "../../database/models/user.js";
-import { ErrorType, IUserRequest } from "../../utils/types.js";
+import mongoose from "mongoose";
+import StudentError from "../../database/models/studentError";
+import User from "../../database/models/user";
+import { ErrorType, IUserRequest } from "../../utils/types";
+
+const { Types } = mongoose;
 
 const getUsers = async (req: Request, res: Response) => {
   const users = await User.find();
@@ -126,7 +128,7 @@ const deleteGroupFromUser = async (req: IUserRequest, res: Response) => {
   }
 };
 
-const deleteErrorFromUser = async (req: Request, res: Response) => {
+const deleteErrorFromUser = async (req: IUserRequest, res: Response) => {
   const { id: userId } = req.params;
   const userErrorId = req.body.id;
   try {
