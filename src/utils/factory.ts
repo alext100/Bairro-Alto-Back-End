@@ -11,5 +11,13 @@ const usersFactory = Factory.define(({ sequence }) => ({
   email: faker.internet.email(),
 }));
 
+const errorsFactory = Factory.define(({ sequence }) => ({
+  id: sequence,
+  errorType: lorem.word(10),
+  errorMessage: lorem.words(3),
+  errorComment: lorem.words(2),
+}));
+
 export const getRandomUser = () => usersFactory.build();
 export const getRandomUsers = (total = 3) => usersFactory.buildList(total);
+export const getRandomError = () => errorsFactory.build();
