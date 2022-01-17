@@ -18,6 +18,15 @@ const errorsFactory = Factory.define(({ sequence }) => ({
   errorComment: lorem.words(2),
 }));
 
+const groupFactory = Factory.define(({ sequence }) => ({
+  id: sequence,
+  groupname: lorem.word(10),
+  members: [sequence, sequence],
+  mensajes: [lorem.words(10)],
+}));
+
 export const getRandomUser = () => usersFactory.build();
 export const getRandomUsers = (total = 3) => usersFactory.buildList(total);
 export const getRandomError = () => errorsFactory.build();
+export const getRandomGroup = () => groupFactory.build();
+export const getRandomGroups = (total = 3) => groupFactory.buildList(total);
