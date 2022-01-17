@@ -10,7 +10,7 @@ import {
 import {
   addErrorToGroup,
   addGroupToUser,
-  deleteErrorFromUser,
+  deleteErrorFromGroup,
   deleteGroupFromUser,
   deleteUser,
   getAllTeachers,
@@ -403,32 +403,32 @@ describe("Given deleteGroupFromUser controller", () => {
   });
 });
 
-describe("Given deleteErrorFromUser controller", () => {
+describe("Given deleteErrorFromGroup controller", () => {
   const req = mockRequest();
   const res = mockResponse();
-  describe("When it receives request with UserID", () => {
-    test("Then it should invoke res.json with updatedUser", async () => {
+  describe("When it receives request with groupID", () => {
+    test("Then it should invoke res.json with updatedGroup", async () => {
       req.params = {
         id: "619s6070a4s80ab3s6545ess",
       };
       req.body = { id: "619s6070a4s80ab3s6545ess" };
-      req.userId = "619s6070a4s80ab3s6545ess";
-      const updatedUser = { id: "619s6070a4s80ab3s6545ess" };
+      req.groupId = "619s6070a4s80ab3s6545ess";
+      const updatedGroup = { id: "619s6070a4s80ab3s6545ess" };
 
-      User.findByIdAndUpdate = jest.fn().mockResolvedValue(updatedUser);
+      Group.findByIdAndUpdate = jest.fn().mockResolvedValue(updatedGroup);
 
-      await deleteErrorFromUser(req, res);
+      await deleteErrorFromGroup(req, res);
 
-      expect(res.json).toHaveBeenCalledWith(updatedUser.id);
+      expect(res.json).toHaveBeenCalledWith(updatedGroup.id);
     });
   });
 
   describe("When it rejects", () => {
     test("Then it should invoke res.json with 404", async () => {
-      User.findByIdAndUpdate = jest.fn().mockResolvedValue(undefined);
+      Group.findByIdAndUpdate = jest.fn().mockResolvedValue(undefined);
       res.sendStatus = jest.fn();
 
-      await deleteErrorFromUser(req, res);
+      await deleteErrorFromGroup(req, res);
 
       expect(res.sendStatus).toHaveBeenCalled();
     });
@@ -438,10 +438,10 @@ describe("Given deleteErrorFromUser controller", () => {
     test("Then it should invoke res.send with error", async () => {
       const error = new Error();
       res.send = jest.fn();
-      req.userId = "619s6070a4s80ab3s6545ess";
+      req.groupId = "619s6070a4s80ab3s6545ess";
 
-      User.findByIdAndUpdate = jest.fn().mockRejectedValue(error);
-      await deleteErrorFromUser(req, res);
+      Group.findByIdAndUpdate = jest.fn().mockRejectedValue(error);
+      await deleteErrorFromGroup(req, res);
 
       expect(res.send).toHaveBeenCalledWith(error);
     });
