@@ -13,6 +13,7 @@ const paths = {
   addGroupToAnyUser: "/add-group-to-any-user/:id",
   create: "/add",
   updateGroupError: "/update-group-error/:id",
+  updateGroupById: "/update-group-by-id/:id",
   delete: "/delete/:id",
 };
 
