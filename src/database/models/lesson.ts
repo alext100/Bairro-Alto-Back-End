@@ -1,4 +1,5 @@
-import { model, Schema, Types } from "mongoose";
+import mongoose from "mongoose";
+const { model, Schema, Types } = mongoose;
 
 interface LessonSchemaTypes {
   author: object;
@@ -12,7 +13,7 @@ interface LessonSchemaTypes {
   date?: string;
 }
 
-const LessonSchema: Schema<LessonSchemaTypes> = new Schema({
+const LessonSchema = new Schema({
   author: {
     type: [Types.ObjectId],
     required: true,

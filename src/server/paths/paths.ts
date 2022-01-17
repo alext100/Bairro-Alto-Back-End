@@ -7,7 +7,7 @@ const paths = {
   getAllUserErrors: "/get-all-user-errors/:id",
   getById: "/get-one-by-id/:id",
   addGroupToUser: "/add-group-to-user/:id",
-  addErrorToUser: "/add-error-to-user/:id",
+  addErrorToGroup: "/add-error-to-group/:id",
   deleteGroupFromUser: "/delete-group-from-user/:id",
   deleteErrorFromUser: "/delete-error-from-user/:id",
   addGroupToAnyUser: "/add-group-to-any-user/:id",

@@ -1,4 +1,5 @@
-import { model, Schema, Types } from "mongoose";
+import mongoose from "mongoose";
+const { model, Schema, Types } = mongoose;
 
 interface GroupSchemaTypes {
   name: string;
@@ -8,7 +9,7 @@ interface GroupSchemaTypes {
   groupErrors: Array<object>;
 }
 
-const groupSchema: Schema<GroupSchemaTypes> = new Schema({
+const groupSchema = new Schema({
   name: {
     type: String,
     required: true,

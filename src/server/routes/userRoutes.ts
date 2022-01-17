@@ -2,7 +2,7 @@ import express from "express";
 import createUser from "../controllers/createUser.js";
 import loginUser from "../controllers/loginUser.js";
 import {
-  addErrorToUser,
+  addErrorToGroup,
   addGroupToUser,
   deleteErrorFromUser,
   deleteGroupFromUser,
@@ -29,7 +29,7 @@ router.get(paths.getAllUsersGroups, auth, getAllUsersGroups);
 router.get(paths.getAllUserErrors, getAllUserErrors);
 
 router.patch(paths.addGroupToUser, auth, addGroupToUser);
-router.patch(paths.addErrorToUser, addErrorToUser);
+router.patch(paths.addErrorToGroup, addErrorToGroup);
 router.patch(paths.deleteGroupFromUser, auth, deleteGroupFromUser);
 router.patch(paths.deleteErrorFromUser, deleteErrorFromUser);
 
