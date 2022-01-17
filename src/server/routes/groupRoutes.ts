@@ -7,7 +7,7 @@ import {
   deleteGroup,
   addGroupToAnyUser,
 } from "../controllers/groupsController.js";
-import paths from "../paths/paths";
+import paths from "../paths/paths.js";
 
 const router = express.Router();
 

@@ -1,7 +1,7 @@
 import getDebug from "debug";
 import chalk from "chalk";
 import mongoose from "mongoose";
-import { ConnectionStringType, TransformTypes } from "../utils/types";
+import { ConnectionStringType, TransformTypes } from "../utils/types.js";
 
 const debug = getDebug("bairro:database");
 debug.enabled = true;
