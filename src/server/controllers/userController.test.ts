@@ -8,7 +8,7 @@ import {
   getRandomUsers,
 } from "../../utils/factory";
 import {
-  addErrorToUser,
+  addErrorToGroup,
   addGroupToUser,
   deleteErrorFromUser,
   deleteGroupFromUser,
@@ -20,6 +20,7 @@ import {
   getUsers,
   updateGroupError,
 } from "./userController";
+import Group from "../../database/models/group";
 
 jest.mock("../../database/models/user");
 
@@ -233,7 +234,7 @@ describe("Given getAllTeachers function", () => {
   });
 });
 
-describe("Given addErrorToUser function", () => {
+describe("Given addErrorToGroup function", () => {
   const req = mockRequest();
   const res = mockResponse();
 
@@ -253,8 +254,8 @@ describe("Given addErrorToUser function", () => {
       const updatedUser = getRandomUser();
 
       StudentError.create = jest.fn().mockResolvedValue(studentError);
-      User.findByIdAndUpdate = jest.fn().mockResolvedValue(updatedUser);
-      await addErrorToUser(req, res);
+      Group.findByIdAndUpdate = jest.fn().mockResolvedValue(updatedUser);
+      await addErrorToGroup(req, res);
 
       expect(res.json).toHaveBeenCalledWith(updatedUser);
     });
@@ -265,8 +266,8 @@ describe("Given addErrorToUser function", () => {
       const error = new Error("User not found");
       res.send = jest.fn();
 
-      User.findByIdAndUpdate = jest.fn().mockRejectedValue(error);
-      await addErrorToUser(req, res);
+      Group.findByIdAndUpdate = jest.fn().mockRejectedValue(error);
+      await addErrorToGroup(req, res);
 
       expect(res.send).toHaveBeenCalledWith(error);
     });
@@ -276,8 +277,8 @@ describe("Given addErrorToUser function", () => {
     test("Then it should invoke res.sendStatus with 404", async () => {
       res.sendStatus = jest.fn();
 
-      User.findByIdAndUpdate = jest.fn().mockResolvedValue(undefined);
-      await addErrorToUser(req, res);
+      Group.findByIdAndUpdate = jest.fn().mockResolvedValue(undefined);
+      await addErrorToGroup(req, res);
 
       expect(res.sendStatus).toHaveBeenCalledWith(404);
     });
@@ -288,7 +289,7 @@ describe("Given addErrorToUser function", () => {
       res.sendStatus = jest.fn();
 
       StudentError.create = jest.fn().mockResolvedValue(undefined);
-      await addErrorToUser(req, res);
+      await addErrorToGroup(req, res);
 
       expect(res.sendStatus).toHaveBeenCalledWith(404);
     });
