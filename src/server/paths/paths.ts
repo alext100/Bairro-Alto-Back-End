@@ -4,7 +4,7 @@ const paths = {
   getAll: "/get-all",
   getAllTeachers: "/get-all-teachers",
   getAllUsersGroups: "/get-all-user-groups",
-  getAllUserErrors: "/get-all-user-errors/:id",
+  getAllGroupErrors: "/get-all-group-errors/:id",
   getById: "/get-one-by-id/:id",
   addGroupToUser: "/add-group-to-user/:id",
   addErrorToGroup: "/add-error-to-group/:id",
