@@ -18,16 +18,22 @@ const initializeMongo = (connectionString: ConnectionStringType) =>
       },
     });
     mongoose.set("debug", true);
-    mongoose.connect(connectionString, (error) => {
-      if (error) {
-        debug(chalk.red("Failed connection with the database"));
-        debug(chalk.red(error.message));
-        reject();
-        return;
+    mongoose.connect(
+      connectionString,
+      {
+        autoIndex: true,
+      },
+      (error) => {
+        if (error) {
+          debug(chalk.red("Failed connection with the database"));
+          debug(chalk.red(error.message));
+          reject();
+          return;
+        }
+        debug(chalk.greenBright(`Connected with the database `));
+        resolve();
       }
-      debug(chalk.greenBright(`Connected with the database `));
-      resolve();
-    });
+    );
   });
 
 export default initializeMongo;
