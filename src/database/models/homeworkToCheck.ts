@@ -1,4 +1,5 @@
-import { model, Schema } from "mongoose";
+import mongoose from "mongoose";
+const { model, Schema, Types } = mongoose;
 
 interface HomeworkToCheckSchemaTypes {
   text: string;
@@ -8,7 +9,7 @@ interface HomeworkToCheckSchemaTypes {
   date?: string;
 }
 
-const HomeworkToCheckSchema: Schema<HomeworkToCheckSchemaTypes> = new Schema({
+const HomeworkToCheckSchema = new Schema({
   text: {
     type: String,
     required: true,
