@@ -4,7 +4,7 @@ import loginUser from "../controllers/loginUser.js";
 import {
   addErrorToGroup,
   addGroupToUser,
-  deleteErrorFromUser,
+  deleteErrorFromGroup,
   deleteGroupFromUser,
   deleteUser,
   getAllTeachers,
@@ -31,9 +31,9 @@ router.get(paths.getAllGroupErrors, getAllGroupErrors);
 router.patch(paths.addGroupToUser, auth, addGroupToUser);
 router.patch(paths.addErrorToGroup, addErrorToGroup);
 router.patch(paths.deleteGroupFromUser, auth, deleteGroupFromUser);
-router.patch(paths.deleteErrorFromUser, deleteErrorFromUser);
+router.patch(paths.deleteErrorFromGroup, deleteErrorFromGroup);
 
-router.put(paths.update, updateGroupError);
+router.put(paths.updateGroupError, updateGroupError);
 
 router.delete(paths.delete, deleteUser);
 
