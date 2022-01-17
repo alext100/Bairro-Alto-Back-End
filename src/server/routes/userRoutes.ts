@@ -8,7 +8,7 @@ import {
   deleteGroupFromUser,
   deleteUser,
   getAllTeachers,
-  getAllUserErrors,
+  getAllGroupErrors,
   getAllUsersGroups,
   getOneUserById,
   getUsers,
@@ -26,7 +26,7 @@ router.get(paths.getAll, getUsers);
 router.get(paths.getById, getOneUserById);
 router.get(paths.getAllTeachers, getAllTeachers);
 router.get(paths.getAllUsersGroups, auth, getAllUsersGroups);
-router.get(paths.getAllUserErrors, getAllUserErrors);
+router.get(paths.getAllGroupErrors, getAllGroupErrors);
 
 router.patch(paths.addGroupToUser, auth, addGroupToUser);
 router.patch(paths.addErrorToGroup, addErrorToGroup);

@@ -102,12 +102,12 @@ const getAllUsersGroups = async (req: IUserRequest, res: Response) => {
   }
 };
 
-const getAllUserErrors = async (req: Request, res: Response) => {
-  const { id: userId } = req.params;
+const getAllGroupErrors = async (req: Request, res: Response) => {
+  const { id: groupId } = req.params;
   try {
-    const errors = await User.findById(userId)
-      .populate("studentErrors")
-      .select("studentErrors");
+    const errors = await Group.findById(groupId)
+      .populate("groupErrors")
+      .select("groupErrors");
     res.json(errors);
   } catch (error) {
     res.status(404);
@@ -171,7 +171,7 @@ export {
   getAllTeachers,
   deleteUser,
   getAllUsersGroups,
-  getAllUserErrors,
+  getAllGroupErrors,
   deleteGroupFromUser,
   deleteErrorFromUser,
   updateGroupError,

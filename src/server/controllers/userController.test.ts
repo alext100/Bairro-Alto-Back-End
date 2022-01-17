@@ -14,7 +14,7 @@ import {
   deleteGroupFromUser,
   deleteUser,
   getAllTeachers,
-  getAllUserErrors,
+  getAllGroupErrors,
   getAllUsersGroups,
   getOneUserById,
   getUsers,
@@ -327,7 +327,7 @@ describe("Given getAllUsersGroups controller", () => {
   });
 });
 
-describe("Given getAllUserErrors controller", () => {
+describe("Given getAllGroupErrors controller", () => {
   const req = mockRequest();
   const res = mockResponse();
   req.params = {
@@ -337,13 +337,13 @@ describe("Given getAllUserErrors controller", () => {
     test("Then it should invoke res.json with groups", async () => {
       const errors = {};
 
-      User.findById = jest.fn().mockReturnValue({
+      Group.findById = jest.fn().mockReturnValue({
         populate: jest.fn().mockReturnValue({
           select: jest.fn().mockResolvedValue(errors),
         }),
       });
 
-      await getAllUserErrors(req, res);
+      await getAllGroupErrors(req, res);
 
       expect(res.json).toHaveBeenCalledWith(errors);
     });
@@ -351,10 +351,10 @@ describe("Given getAllUserErrors controller", () => {
 
   describe("When it rejects", () => {
     test("Then it should invoke res.status with 404", async () => {
-      User.findById = jest.fn().mockReturnValueOnce(undefined);
+      Group.findById = jest.fn().mockReturnValueOnce(undefined);
       res.send = jest.fn();
 
-      await getAllUserErrors(req, res);
+      await getAllGroupErrors(req, res);
 
       expect(res.status).toHaveBeenCalledWith(404);
     });
