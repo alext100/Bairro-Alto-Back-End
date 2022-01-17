@@ -6,6 +6,7 @@ import morgan from "morgan";
 import { ErrorType, PortType } from "../utils/types.js";
 
 import userRoutes from "./routes/userRoutes.js";
+import groupRoutes from "./routes/groupRoutes.js";
 import {
   generalErrorHandler,
   notFoundErrorHandler,
@@ -41,6 +42,7 @@ export const initializeServer = (port: PortType) =>
   });
 
 app.use("/user", userRoutes);
+app.use("/group", groupRoutes);
 
 app.use(notFoundErrorHandler);
 app.use(generalErrorHandler);

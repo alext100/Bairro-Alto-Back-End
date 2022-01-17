@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const { model, Schema, Types } = mongoose;
 
 interface GroupSchemaTypes {
-  name: string;
+  groupName: string;
   members: Array<object>;
   homeworkToDo: object;
   lessons: Array<object>;
@@ -10,9 +10,10 @@ interface GroupSchemaTypes {
 }
 
 const groupSchema = new Schema({
-  name: {
+  groupName: {
     type: String,
     required: true,
+    unique: true,
   },
   members: [
     {
