@@ -8,6 +8,7 @@ import { ErrorType, PortType } from "../utils/types.js";
 import userRoutes from "./routes/userRoutes.js";
 import groupRoutes from "./routes/groupRoutes.js";
 import lessonRoutes from "./routes/lessonRoutes.js";
+import errorRoutes from "./routes/errorRoutes.js";
 import {
   generalErrorHandler,
   notFoundErrorHandler,
@@ -45,6 +46,7 @@ export const initializeServer = (port: PortType) =>
 app.use("/user", userRoutes);
 app.use("/group", groupRoutes);
 app.use("/lesson", lessonRoutes);
+app.use("/error", errorRoutes);
 
 app.use(notFoundErrorHandler);
 app.use(generalErrorHandler);

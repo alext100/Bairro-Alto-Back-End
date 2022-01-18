@@ -2,17 +2,13 @@ import express from "express";
 import createUser from "../controllers/createUser.js";
 import loginUser from "../controllers/loginUser.js";
 import {
-  addErrorToGroup,
   addGroupToUser,
-  deleteErrorFromGroup,
   deleteGroupFromUser,
   deleteUser,
   getAllTeachers,
-  getAllGroupErrors,
   getAllUsersGroups,
   getOneUserById,
   getUsers,
-  updateGroupError,
 } from "../controllers/userController.js";
 import auth from "../middlewares/auth.js";
 import paths from "../paths/paths.js";
@@ -26,14 +22,9 @@ router.get(paths.getAll, getUsers);
 router.get(paths.getById, getOneUserById);
 router.get(paths.getAllTeachers, getAllTeachers);
 router.get(paths.getAllUsersGroups, auth, getAllUsersGroups);
-router.get(paths.getAllGroupErrors, getAllGroupErrors);
 
 router.patch(paths.addGroupToUser, auth, addGroupToUser);
-router.patch(paths.addErrorToGroup, addErrorToGroup);
 router.patch(paths.deleteGroupFromUser, auth, deleteGroupFromUser);
-router.patch(paths.deleteErrorFromGroup, deleteErrorFromGroup);
-
-router.put(paths.updateGroupError, updateGroupError);
 
 router.delete(paths.delete, deleteUser);
 
