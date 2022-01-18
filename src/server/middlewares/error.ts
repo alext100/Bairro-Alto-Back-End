@@ -2,7 +2,7 @@ import getDebug from "debug";
 import { NextFunction, Request, Response } from "express";
 import { ValidationError } from "express-validation";
 
-const debug = getDebug("picasso:errors");
+const debug = getDebug("bairro:errors");
 
 const notFoundErrorHandler = (req: Request, res: Response) => {
   res.status(404).json({ error: "Endpoint not found" });
