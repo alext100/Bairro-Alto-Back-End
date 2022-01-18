@@ -108,6 +108,12 @@ build
 # vscode folder
 .vscode/
 
+images
+
 .scannerwork/
 
 jest.config.jsee
+
+service-account-file.json
+
+bairro-alto-firebase-adminsdk-h06h6-4b2fd855b3.json
