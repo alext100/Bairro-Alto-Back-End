@@ -15,6 +15,7 @@ const paths = {
   updateGroupError: "/update-group-error/:id",
   updateGroupById: "/update-group-by-id/:id",
   delete: "/delete/:id",
+  uploadMedia: "/upload/:id",
 };
 
 export default paths;
