@@ -20,4 +20,7 @@ export type TransformTypes = {
 export interface IUserRequest extends express.Request {
   groupId?: any;
   userId?: any;
+  images?: any;
+  files?: any;
+  file?: any;
 }
