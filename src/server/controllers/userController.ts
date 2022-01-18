@@ -49,30 +49,6 @@ const addGroupToUser = async (req: IUserRequest, res: Response) => {
   }
 };
 
-const addErrorToGroup = async (req: Request, res: Response) => {
-  const { errorType, errorMessage, errorComment, date } = req.body;
-  try {
-    const newGroupError = await StudentError.create({
-      errorType,
-      errorMessage,
-      errorComment,
-      date,
-    });
-    if (!newGroupError) return res.sendStatus(404);
-    const { id: groupId } = req.params;
-    const updatedGroup = await Group.findByIdAndUpdate(
-      groupId,
-      { $push: { groupErrors: newGroupError.id } },
-      { new: true }
-    );
-    if (!updatedGroup) return res.sendStatus(404);
-    return res.json(updatedGroup);
-  } catch (error) {
-    (error as ErrorType).code = 500;
-    return res.send(error);
-  }
-};
-
 const getAllTeachers = async (req: Request, res: Response) => {
   const users = await User.find();
   const teachers = users.filter((teacher) => teacher.teacherAccess === true);
@@ -102,19 +78,6 @@ const getAllUsersGroups = async (req: IUserRequest, res: Response) => {
   }
 };
 
-const getAllGroupErrors = async (req: Request, res: Response) => {
-  const { id: groupId } = req.params;
-  try {
-    const errors = await Group.findById(groupId)
-      .populate("groupErrors")
-      .select("groupErrors");
-    res.json(errors);
-  } catch (error) {
-    res.status(404);
-    return res.send(error);
-  }
-};
-
 const deleteGroupFromUser = async (req: IUserRequest, res: Response) => {
   const { id: groupId } = req.params;
   try {
@@ -129,50 +92,12 @@ const deleteGroupFromUser = async (req: IUserRequest, res: Response) => {
   }
 };
 
-const deleteErrorFromGroup = async (req: IUserRequest, res: Response) => {
-  const { id: groupId } = req.params;
-  const groupErrorId = req.body.id;
-  try {
-    const updatedGroup = await Group.findByIdAndUpdate(groupId, {
-      $pull: { groupErrors: groupErrorId },
-    });
-    if (!updatedGroup) return res.sendStatus(404);
-    res.json(updatedGroup.id);
-  } catch (error) {
-    (error as ErrorType).code = 500;
-    return res.send(error);
-  }
-};
-
-const updateGroupError = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const studentError = req.body;
-  try {
-    const updatedError = await StudentError.findByIdAndUpdate(
-      id,
-      studentError,
-      {
-        new: true,
-      }
-    );
-    if (!updatedError) return res.sendStatus(404);
-    return res.status(201).json(updatedError);
-  } catch (error) {
-    res.status(500);
-    return res.send(error);
-  }
-};
-
 export {
   getUsers,
   getOneUserById,
   addGroupToUser,
-  addErrorToGroup,
   getAllTeachers,
   deleteUser,
   getAllUsersGroups,
-  getAllGroupErrors,
   deleteGroupFromUser,
-  deleteErrorFromGroup,
-  updateGroupError,
 };
