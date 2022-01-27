@@ -95,6 +95,23 @@ const addGroupToAnyUser = async (req: IUserRequest, res: Response) => {
   }
 };
 
+const deleteMemberFromGroup = async (req: IUserRequest, res: Response) => {
+  const { id: userId } = req.params;
+  const groupId = req.body.id;
+  try {
+    const updatedUser = await Group.findByIdAndUpdate(
+      groupId,
+      { $pull: { members: new Types.ObjectId(userId) } },
+      { new: true }
+    );
+    if (!updatedUser) return res.sendStatus(404);
+    res.json(updatedUser.id);
+  } catch (error) {
+    (error as ErrorType).code = 500;
+    return res.send(error);
+  }
+};
+
 export {
   createGroup,
   deleteGroup,
@@ -102,4 +119,5 @@ export {
   getOneGroupById,
   updateGroupById,
   addGroupToAnyUser,
+  deleteMemberFromGroup,
 };
