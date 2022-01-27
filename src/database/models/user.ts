@@ -48,7 +48,7 @@ const userSchema = new Schema({
   },
   studentAccess: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   groups: [
     {

@@ -16,6 +16,7 @@ const paths = {
   updateGroupById: "/update-group-by-id/:id",
   delete: "/delete/:id",
   uploadMedia: "/upload/:id",
+  deleteMemberFromGroup: "/delete-group-member/:id",
 };
 
 export default paths;
