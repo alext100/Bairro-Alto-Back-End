@@ -24,13 +24,15 @@ const firebase = async (
     const getImages = req.files.map(async (image: any) => {
       await bucket.upload(image.path);
       await bucket.file(image.filename).makePublic();
+      const url = bucket.file(image.filename).publicUrl();
       return bucket.file(image.filename).publicUrl();
     });
 
     const images = await Promise.all(getImages);
     req.images = images;
     debug(chalk.green(`A total of ${images.length} images have been uploaded`));
-    next();
+    return res.send(images);
+    /* next(); */
   } catch (error) {
     (error as ErrorType).code = 400;
     (error as ErrorType).message = "There has been an error with firebase";
