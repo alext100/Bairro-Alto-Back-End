@@ -19,13 +19,17 @@ debug.enabled = true;
 
 const app = express();
 
-/* app.use(cors()); */
+app.use(cors());
 const corsConfig = {
   credentials: true,
   origin: true,
 };
 
 app.use(cors(corsConfig));
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+});
 app.use(morgan("dev"));
 app.use(express.json());
 
