@@ -7,6 +7,7 @@ interface HomeworkToCheckSchemaTypes {
   video?: Array<string>;
   image?: Array<string>;
   date?: string;
+  info?: Array<string>;
 }
 
 const HomeworkToCheckSchema = new Schema({
@@ -36,6 +37,11 @@ const HomeworkToCheckSchema = new Schema({
     type: Date,
     default: new Date(),
   },
+  info: [
+    {
+      type: Object,
+    },
+  ],
 });
 
 const HomeworkToCheck = model<HomeworkToCheckSchemaTypes>(
