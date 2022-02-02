@@ -2,11 +2,11 @@ import express from "express";
 import createUser from "../controllers/createUser.js";
 import loginUser from "../controllers/loginUser.js";
 import {
-  addGroupToUser,
+  addGroupToTeacher,
   deleteGroupFromUser,
   deleteUser,
   getAllTeachers,
-  getAllUsersGroups,
+  getAllTeachersGroups,
   getOneUserById,
   getUsers,
 } from "../controllers/userController.js";
@@ -21,9 +21,9 @@ router.post(paths.userLogin, loginUser);
 router.get(paths.getAll, getUsers);
 router.get(paths.getById, getOneUserById);
 router.get(paths.getAllTeachers, getAllTeachers);
-router.get(paths.getAllUsersGroups, auth, getAllUsersGroups);
+router.get(paths.getAllUsersGroups, auth, getAllTeachersGroups);
 
-router.patch(paths.addGroupToUser, auth, addGroupToUser);
+router.patch(paths.addGroupToUser, auth, addGroupToTeacher);
 router.patch(paths.deleteGroupFromUser, auth, deleteGroupFromUser);
 
 router.delete(paths.delete, deleteUser);

@@ -3,7 +3,7 @@ import Group from "../../database/models/group";
 import { mockRequest, mockResponse } from "../../utils/mocks";
 import { getRandomGroup, getRandomGroups } from "../../utils/factory";
 import {
-  addGroupToAnyUser,
+  addMemberToGroup,
   createGroup,
   deleteGroup,
   getAllGroups,
@@ -223,7 +223,7 @@ describe("Given addGroupToAnyUser controller", () => {
 
       Group.findByIdAndUpdate = jest.fn().mockResolvedValue(updatedUser);
 
-      await addGroupToAnyUser(req, res);
+      await addMemberToGroup(req, res);
 
       expect(res.json).toHaveBeenCalledWith(updatedUser.id);
     });
@@ -234,7 +234,7 @@ describe("Given addGroupToAnyUser controller", () => {
       Group.findByIdAndUpdate = jest.fn().mockResolvedValue(undefined);
       res.sendStatus = jest.fn();
 
-      await addGroupToAnyUser(req, res);
+      await addMemberToGroup(req, res);
 
       expect(res.sendStatus).toHaveBeenCalled();
     });
@@ -246,7 +246,7 @@ describe("Given addGroupToAnyUser controller", () => {
       res.send = jest.fn();
 
       Group.findByIdAndUpdate = jest.fn().mockRejectedValue(error);
-      await addGroupToAnyUser(req, res);
+      await addMemberToGroup(req, res);
 
       expect(res.send).toHaveBeenCalledWith(error);
     });

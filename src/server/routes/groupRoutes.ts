@@ -5,7 +5,7 @@ import {
   getOneGroupById,
   updateGroupById,
   deleteGroup,
-  addGroupToAnyUser,
+  addMemberToGroup,
   deleteMemberFromGroup,
 } from "../controllers/groupsController.js";
 import paths from "../paths/paths.js";
@@ -20,7 +20,7 @@ router.get(paths.getById, getOneGroupById);
 
 router.put(paths.updateGroupById, updateGroupById);
 
-router.patch(paths.addGroupToAnyUser, addGroupToAnyUser);
+router.patch(paths.addGroupToAnyUser, addMemberToGroup);
 
 router.patch(paths.deleteMemberFromGroup, deleteMemberFromGroup);
 

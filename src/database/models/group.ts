@@ -4,9 +4,11 @@ const { model, Schema, Types } = mongoose;
 interface GroupSchemaTypes {
   groupName: string;
   members: Array<object>;
+  teachers: Array<object>;
   homeworkToDo: object;
   lessons: Array<object>;
   groupErrors: Array<object>;
+  info?: Array<object>;
 }
 
 const groupSchema = new Schema({
@@ -16,6 +18,12 @@ const groupSchema = new Schema({
     unique: true,
   },
   members: [
+    {
+      type: [Types.ObjectId],
+      ref: "User",
+    },
+  ],
+  teachers: [
     {
       type: [Types.ObjectId],
       ref: "User",
@@ -36,6 +44,11 @@ const groupSchema = new Schema({
     {
       type: [Types.ObjectId],
       ref: "Error",
+    },
+  ],
+  info: [
+    {
+      type: Object,
     },
   ],
 });

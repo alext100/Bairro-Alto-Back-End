@@ -33,15 +33,22 @@ const getOneUserById = async (
   }
 };
 
-const addGroupToUser = async (req: IUserRequest, res: Response) => {
+const addGroupToTeacher = async (req: IUserRequest, res: Response) => {
   const { id: groupId } = req.params;
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.userId,
-      { $push: { groups: new Types.ObjectId(groupId) } },
+      { $push: { teacherGroups: new Types.ObjectId(groupId) } },
       { new: true }
     );
     if (!updatedUser) return res.sendStatus(404);
+
+    const updatedGroup = await Group.findByIdAndUpdate(
+      groupId,
+      { $push: { teachers: new Types.ObjectId(req.userId) } },
+      { new: true }
+    );
+    if (!updatedGroup) return res.sendStatus(404);
     res.json(updatedUser);
   } catch (error) {
     (error as ErrorType).code = 500;
@@ -66,11 +73,11 @@ const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
-const getAllUsersGroups = async (req: IUserRequest, res: Response) => {
+const getAllTeachersGroups = async (req: IUserRequest, res: Response) => {
   try {
     const groups = await User.findById(req.userId)
-      .populate("groups")
-      .select("groups");
+      .populate("teacherGroups")
+      .select("teacherGroups");
     res.json(groups);
   } catch (error) {
     res.status(404);
@@ -82,9 +89,13 @@ const deleteGroupFromUser = async (req: IUserRequest, res: Response) => {
   const { id: groupId } = req.params;
   try {
     const updatedUser = await User.findByIdAndUpdate(req.userId, {
-      $pull: { groups: groupId },
+      $pull: { teacherGroups: groupId },
     });
     if (!updatedUser) return res.sendStatus(404);
+    const updatedGroup = await Group.findByIdAndUpdate(groupId, {
+      $pull: { teachers: req.userId },
+    });
+    if (!updatedGroup) return res.sendStatus(404);
     res.json(updatedUser);
   } catch (error) {
     (error as ErrorType).code = 500;
@@ -95,9 +106,9 @@ const deleteGroupFromUser = async (req: IUserRequest, res: Response) => {
 export {
   getUsers,
   getOneUserById,
-  addGroupToUser,
+  addGroupToTeacher,
   getAllTeachers,
   deleteUser,
-  getAllUsersGroups,
+  getAllTeachersGroups,
   deleteGroupFromUser,
 };

@@ -3,11 +3,11 @@ import User from "../../database/models/user";
 import { mockRequest, mockResponse } from "../../utils/mocks";
 import { getRandomUser, getRandomUsers } from "../../utils/factory";
 import {
-  addGroupToUser,
+  addGroupToTeacher,
   deleteGroupFromUser,
   deleteUser,
   getAllTeachers,
-  getAllUsersGroups,
+  getAllTeachersGroups,
   getOneUserById,
   getUsers,
 } from "./userController";
@@ -97,7 +97,7 @@ describe("Given addGroupToUserController", () => {
       const updatedUser = getRandomUser();
 
       User.findByIdAndUpdate = jest.fn().mockResolvedValue(updatedUser);
-      await addGroupToUser(req, res);
+      await addGroupToTeacher(req, res);
 
       expect(res.json).toHaveBeenCalledWith(updatedUser);
     });
@@ -109,7 +109,7 @@ describe("Given addGroupToUserController", () => {
       res.send = jest.fn();
 
       User.findByIdAndUpdate = jest.fn().mockRejectedValue(error);
-      await addGroupToUser(req, res);
+      await addGroupToTeacher(req, res);
 
       expect(res.send).toHaveBeenCalledWith(error);
     });
@@ -120,7 +120,7 @@ describe("Given addGroupToUserController", () => {
       res.sendStatus = jest.fn();
 
       User.findByIdAndUpdate = jest.fn().mockResolvedValue(undefined);
-      await addGroupToUser(req, res);
+      await addGroupToTeacher(req, res);
 
       expect(res.sendStatus).toHaveBeenCalledWith(404);
     });
@@ -237,7 +237,7 @@ describe("Given getAllUsersGroups controller", () => {
         }),
       });
 
-      await getAllUsersGroups(req, res);
+      await getAllTeachersGroups(req, res);
 
       expect(res.json).toHaveBeenCalledWith(group);
     });
@@ -248,7 +248,7 @@ describe("Given getAllUsersGroups controller", () => {
       User.findById = jest.fn().mockReturnValueOnce(undefined);
       res.send = jest.fn();
 
-      await getAllUsersGroups(req, res);
+      await getAllTeachersGroups(req, res);
 
       expect(res.status).toHaveBeenCalledWith(404);
     });
