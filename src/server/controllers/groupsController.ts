@@ -78,7 +78,7 @@ const deleteGroup = async (req: IUserRequest, res: Response) => {
   }
 };
 
-const addGroupToAnyUser = async (req: IUserRequest, res: Response) => {
+const addMemberToGroup = async (req: IUserRequest, res: Response) => {
   const { id: userId } = req.params;
   const groupId = req.body.id;
   try {
@@ -118,6 +118,6 @@ export {
   getAllGroups,
   getOneGroupById,
   updateGroupById,
-  addGroupToAnyUser,
+  addMemberToGroup,
   deleteMemberFromGroup,
 };
