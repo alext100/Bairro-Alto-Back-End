@@ -13,7 +13,9 @@ const deleteErrorFromGroup = async (req: IUserRequest, res: Response) => {
     const updatedGroup = await Group.findByIdAndUpdate(groupId, {
       $pull: { groupErrors: groupErrorId },
     });
-    if (!updatedGroup) return res.sendStatus(404);
+    if (!updatedGroup) {
+      return res.sendStatus(404);
+    } else await StudentError.findByIdAndDelete(groupErrorId);
     res.json(updatedGroup.id);
   } catch (error) {
     (error as ErrorType).code = 500;
