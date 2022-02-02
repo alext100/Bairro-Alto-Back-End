@@ -10,8 +10,11 @@ interface UserSchemaTypes {
   teacherAccess: boolean;
   studentAccess: boolean;
   groups: Array<object>;
+  teacherGroups: Array<object>;
+  studentGroups: Array<object>;
   image: string;
-  homeworkToCheck: Array<object>;
+  homeworkToCheck?: Array<object>;
+  info?: Array<object>;
 }
 
 const userSchema = new Schema({
@@ -56,10 +59,28 @@ const userSchema = new Schema({
       ref: "Group",
     },
   ],
+  teacherGroups: [
+    {
+      type: [Types.ObjectId],
+      ref: "Group",
+    },
+  ],
+  studentGroups: [
+    {
+      type: [Types.ObjectId],
+      ref: "Group",
+    },
+  ],
+
   homeworkToCheck: [
     {
       type: [Types.ObjectId],
       ref: "Homework",
+    },
+  ],
+  info: [
+    {
+      type: Object,
     },
   ],
 });
