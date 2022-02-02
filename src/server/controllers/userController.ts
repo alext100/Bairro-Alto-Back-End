@@ -89,9 +89,13 @@ const deleteGroupFromUser = async (req: IUserRequest, res: Response) => {
   const { id: groupId } = req.params;
   try {
     const updatedUser = await User.findByIdAndUpdate(req.userId, {
-      $pull: { groups: groupId },
+      $pull: { teacherGroups: groupId },
     });
     if (!updatedUser) return res.sendStatus(404);
+    const updatedGroup = await Group.findByIdAndUpdate(groupId, {
+      $pull: { teachers: req.userId },
+    });
+    if (!updatedGroup) return res.sendStatus(404);
     res.json(updatedUser);
   } catch (error) {
     (error as ErrorType).code = 500;
@@ -102,9 +106,9 @@ const deleteGroupFromUser = async (req: IUserRequest, res: Response) => {
 export {
   getUsers,
   getOneUserById,
-  addGroupToUser,
+  addGroupToTeacher,
   getAllTeachers,
   deleteUser,
-  getAllUsersGroups,
+  getAllTeachersGroups,
   deleteGroupFromUser,
 };
