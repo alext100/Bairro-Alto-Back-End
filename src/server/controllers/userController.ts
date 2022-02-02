@@ -73,11 +73,11 @@ const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
-const getAllUsersGroups = async (req: IUserRequest, res: Response) => {
+const getAllTeachersGroups = async (req: IUserRequest, res: Response) => {
   try {
     const groups = await User.findById(req.userId)
-      .populate("groups")
-      .select("groups");
+      .populate("teacherGroups")
+      .select("teacherGroups");
     res.json(groups);
   } catch (error) {
     res.status(404);
