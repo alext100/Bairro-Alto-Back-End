@@ -6,6 +6,7 @@ interface StudentErrorSchemaTypes {
   errorMessage: string;
   errorComment: string;
   date?: string;
+  info?: Array<object>;
 }
 
 const studentErrorSchema = new Schema({
@@ -28,6 +29,11 @@ const studentErrorSchema = new Schema({
     type: Date,
     default: new Date(),
   },
+  info: [
+    {
+      type: Object,
+    },
+  ],
 });
 
 const StudentError = model<StudentErrorSchemaTypes>(
