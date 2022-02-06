@@ -1,5 +1,9 @@
 import express from "express";
-import { addLesson, getAllLessons } from "../controllers/lessonControllers.js";
+import {
+  addLesson,
+  getAllLessons,
+  updateLessonById,
+} from "../controllers/lessonControllers.js";
 import auth from "../middlewares/auth.js";
 import firebase from "../middlewares/firebase.js";
 import uploadImages from "../middlewares/uploadImages.js";
@@ -11,5 +15,7 @@ router.post(paths.uploadMedia, auth, uploadImages.array("images"), firebase);
 router.post(paths.create, auth, addLesson);
 
 router.get(paths.getAll, auth, getAllLessons);
+
+router.put(paths.updateById, updateLessonById);
 
 export default router;

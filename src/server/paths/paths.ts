@@ -14,6 +14,7 @@ const paths = {
   create: "/add",
   updateGroupError: "/update-group-error/:id",
   updateGroupById: "/update-group-by-id/:id",
+  updateById: "/update/:id",
   delete: "/delete/:id",
   uploadMedia: "/upload",
   deleteMemberFromGroup: "/delete-group-member/:id",
