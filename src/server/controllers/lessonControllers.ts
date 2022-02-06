@@ -19,4 +19,15 @@ const addLesson = async (req: Request, res: Response) => {
   }
 };
 
-export { addLesson };
+const getAllLessons = async (req: Request, res: Response) => {
+  try {
+    const allLessons = await Lesson.find();
+    if (!allLessons) return res.sendStatus(404);
+    res.json(allLessons);
+  } catch (error) {
+    (error as ErrorType).code = 500;
+    return res.send(error);
+  }
+};
+
+export { addLesson, getAllLessons };
