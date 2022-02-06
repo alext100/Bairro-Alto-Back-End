@@ -45,4 +45,15 @@ const updateLessonById = async (req: Request, res: Response) => {
   }
 };
 
-export { addLesson, getAllLessons, updateLessonById };
+const deleteLesson = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    await Lesson.findByIdAndDelete(id);
+    res.json(200);
+  } catch (error) {
+    res.status(500);
+    return res.send(error);
+  }
+};
+
+export { addLesson, getAllLessons, updateLessonById, deleteLesson };
