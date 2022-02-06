@@ -3,7 +3,7 @@ const { model, Schema, Types } = mongoose;
 
 interface LessonSchemaTypes {
   author: object;
-  lessonName: string;
+  lessonName?: string;
   lessonDescription?: string;
   level: string;
   lessonImage?: string;
@@ -21,7 +21,7 @@ const LessonSchema = new Schema({
   },
   lessonName: {
     type: String,
-    required: true,
+    required: false,
   },
   lessonDescription: {
     type: String,
