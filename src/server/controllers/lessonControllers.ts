@@ -30,4 +30,19 @@ const getAllLessons = async (req: Request, res: Response) => {
   }
 };
 
-export { addLesson, getAllLessons };
+const updateLessonById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const lesson = req.body;
+  try {
+    const updatedLesson = await Lesson.findByIdAndUpdate(id, lesson, {
+      new: true,
+    });
+    if (!updateLessonById) return res.sendStatus(404);
+    return res.status(201).json(updatedLesson);
+  } catch (error) {
+    res.status(500);
+    return res.send(error);
+  }
+};
+
+export { addLesson, getAllLessons, updateLessonById };
