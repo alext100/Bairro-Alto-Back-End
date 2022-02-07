@@ -3,13 +3,28 @@ import Lesson from "../../database/models/lesson.js";
 import { ErrorType } from "../../utils/types.js";
 
 const addLesson = async (req: Request, res: Response) => {
-  const { author, date, level, text } = req.body;
+  const {
+    author,
+    date,
+    level,
+    body,
+    title,
+    lessonDescription,
+    videos,
+    audios,
+    info,
+  } = req.body;
   try {
     const newLesson = await Lesson.create({
       author,
+      title,
       date,
       level,
-      text,
+      body,
+      lessonDescription,
+      videos,
+      audios,
+      info,
     });
     if (!newLesson) return res.sendStatus(404);
     return res.json(newLesson);
