@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import Lesson from "../../database/models/lesson";
-import { ErrorType } from "../../utils/types";
+import { Request, Response } from "express";
+import Lesson from "../../database/models/lesson.js";
+import { ErrorType } from "../../utils/types.js";
 
 const addLesson = async (req: Request, res: Response) => {
   const { author, date, level, text } = req.body;
