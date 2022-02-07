@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const { model, Schema, Types } = mongoose;
 
 interface UserSchemaTypes {
