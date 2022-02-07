@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
+
 const { model, Schema, Types } = mongoose;
 
 interface LessonSchemaTypes {
   author: object;
-  lessonName?: string;
+  title: string;
+  body: string;
   lessonDescription?: string;
   level: string;
-  lessonImage?: string;
   videos?: Array<string>;
   audios?: Array<string>;
-  text: string;
   date?: string;
   info?: Array<object>;
 }
@@ -19,9 +19,9 @@ const LessonSchema = new Schema({
     type: [Types.ObjectId],
     required: true,
   },
-  lessonName: {
+  title: {
     type: String,
-    required: false,
+    required: true,
   },
   lessonDescription: {
     type: String,
@@ -30,10 +30,6 @@ const LessonSchema = new Schema({
   level: {
     type: String,
     required: true,
-  },
-  lessonImage: {
-    type: String,
-    required: false,
   },
   videos: [
     {
@@ -47,7 +43,7 @@ const LessonSchema = new Schema({
       required: false,
     },
   ],
-  text: {
+  body: {
     type: String,
     required: true,
   },
