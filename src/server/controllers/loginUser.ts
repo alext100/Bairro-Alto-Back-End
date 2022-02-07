@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-import User from "../../database/models/user.js";
-import { ErrorType } from "../../utils/types.js";
 import getDebug from "debug";
 import chalk from "chalk";
+import User from "../../database/models/user.js";
+import { ErrorType } from "../../utils/types.js";
 
 const debug = getDebug("bairro:login");
 debug.enabled = true;

@@ -12,5 +12,5 @@
     "moduleResolution": "Node"
   },
   "include": ["./**/*.ts", ".eslintrc.cjs", "./build/**/*.ts"],
-  "exclude": ["./build", "node_modules", "coverage"]
+  "exclude": ["./build", "node_modules", "./coverage"]
 }
