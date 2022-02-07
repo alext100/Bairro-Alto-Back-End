@@ -24,6 +24,7 @@ const firebase = async (
     const getImages = req.files.map(async (image: any) => {
       await bucket.upload(image.path);
       await bucket.file(image.filename).makePublic();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const url = bucket.file(image.filename).publicUrl();
       return bucket.file(image.filename).publicUrl();
     });

@@ -1,10 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-import mongoose from "mongoose";
+import { Request, Response } from "express";
 import Group from "../../database/models/group.js";
 import StudentError from "../../database/models/studentError.js";
 import { ErrorType, IUserRequest } from "../../utils/types.js";
-
-const { Types } = mongoose;
 
 const deleteErrorFromGroup = async (req: IUserRequest, res: Response) => {
   const { id: groupId } = req.params;
@@ -15,7 +12,8 @@ const deleteErrorFromGroup = async (req: IUserRequest, res: Response) => {
     });
     if (!updatedGroup) {
       return res.sendStatus(404);
-    } else await StudentError.findByIdAndDelete(groupErrorId);
+    }
+    await StudentError.findByIdAndDelete(groupErrorId);
     res.json(updatedGroup.id);
   } catch (error) {
     (error as ErrorType).code = 500;

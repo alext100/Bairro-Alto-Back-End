@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-const { model, Schema, Types } = mongoose;
+
+const { model, Schema } = mongoose;
 
 interface HomeworkToCheckSchemaTypes {
   text: string;

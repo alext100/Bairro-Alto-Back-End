@@ -3,7 +3,7 @@ import firebase from "./firebase";
 
 describe("Given a firebase function", () => {
   const res = mockResponse();
-  let req = mockRequest();
+  const req = mockRequest();
   describe("When it receives an object req with files", () => {
     test("Then it should add a property images in req and invoke next", async () => {
       req.files = [];

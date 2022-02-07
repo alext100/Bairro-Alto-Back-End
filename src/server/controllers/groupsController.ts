@@ -1,7 +1,8 @@
 import { NextFunction, Response } from "express";
-import { ErrorType, IUserRequest } from "../../utils/types.js";
 import mongoose from "mongoose";
+import { ErrorType, IUserRequest } from "../../utils/types.js";
 import Group from "../../database/models/group.js";
+import User from "../../database/models/user.js";
 
 const { Types } = mongoose;
 
@@ -82,13 +83,20 @@ const addMemberToGroup = async (req: IUserRequest, res: Response) => {
   const { id: userId } = req.params;
   const groupId = req.body.id;
   try {
-    const updatedUser = await Group.findByIdAndUpdate(
+    const updatedGroup = await Group.findByIdAndUpdate(
       groupId,
       { $push: { members: new Types.ObjectId(userId) } },
       { new: true }
     );
+    if (!updatedGroup) return res.sendStatus(404);
+    res.json(updatedGroup.id);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $push: { studentGroups: new Types.ObjectId(groupId) } },
+      { new: true }
+    );
     if (!updatedUser) return res.sendStatus(404);
-    res.json(updatedUser.id);
   } catch (error) {
     (error as ErrorType).code = 500;
     return res.send(error);
@@ -106,6 +114,13 @@ const deleteMemberFromGroup = async (req: IUserRequest, res: Response) => {
     );
     if (!updatedUser) return res.sendStatus(404);
     res.json(updatedUser.id);
+
+    const updatedGroup = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { studentGroups: new Types.ObjectId(groupId) } },
+      { new: true }
+    );
+    if (!updatedGroup) return res.sendStatus(404);
   } catch (error) {
     (error as ErrorType).code = 500;
     return res.send(error);

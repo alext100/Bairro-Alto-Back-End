@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import Group from "../../database/models/group.js";
-import StudentError from "../../database/models/studentError.js";
 import User from "../../database/models/user.js";
 import { ErrorType, IUserRequest } from "../../utils/types.js";
 
