@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import { ErrorType, IUserRequest } from "../../utils/types.js";
 
 dotenv.config();
