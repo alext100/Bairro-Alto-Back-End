@@ -114,6 +114,13 @@ const deleteMemberFromGroup = async (req: IUserRequest, res: Response) => {
     );
     if (!updatedUser) return res.sendStatus(404);
     res.json(updatedUser.id);
+
+    const updatedGroup = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { studentGroups: new Types.ObjectId(groupId) } },
+      { new: true }
+    );
+    if (!updatedGroup) return res.sendStatus(404);
   } catch (error) {
     (error as ErrorType).code = 500;
     return res.send(error);
