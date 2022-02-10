@@ -18,6 +18,8 @@ const paths = {
   delete: "/delete/:id",
   uploadMedia: "/upload",
   deleteMemberFromGroup: "/delete-group-member/:id",
+  deleteLessonFromGroup: "/delete-group-lesson/:id",
+  addLessonToGroup: "/add-group-lesson/:id",
 };
 
 export default paths;

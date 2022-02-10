@@ -1,4 +1,4 @@
-import { NextFunction, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import { ErrorType, IUserRequest } from "../../utils/types.js";
 import Group from "../../database/models/group.js";
@@ -127,6 +127,40 @@ const deleteMemberFromGroup = async (req: IUserRequest, res: Response) => {
   }
 };
 
+const deleteLessonFromGroup = async (req: Request, res: Response) => {
+  const { id: groupId } = req.params;
+  const lessonId = req.body.id;
+  try {
+    const updatedGroup = await Group.findByIdAndUpdate(
+      groupId,
+      { $pull: { lessons: lessonId } },
+      { new: true }
+    );
+    if (!updatedGroup) return res.sendStatus(404);
+    res.json(200);
+  } catch (error) {
+    (error as ErrorType).code = 500;
+    return res.send(error);
+  }
+};
+
+const addLessonToGroup = async (req: Request, res: Response) => {
+  const { id: groupId } = req.params;
+  const lessonId = req.body.id;
+  try {
+    const updatedGroup = await Group.findByIdAndUpdate(
+      groupId,
+      { $push: { lessons: lessonId } },
+      { new: true }
+    );
+    if (!updatedGroup) return res.sendStatus(404);
+    res.json(200);
+  } catch (error) {
+    (error as ErrorType).code = 500;
+    return res.send(error);
+  }
+};
+
 export {
   createGroup,
   deleteGroup,
@@ -134,5 +168,7 @@ export {
   getOneGroupById,
   updateGroupById,
   addMemberToGroup,
+  addLessonToGroup,
   deleteMemberFromGroup,
+  deleteLessonFromGroup,
 };

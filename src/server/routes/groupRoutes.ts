@@ -7,6 +7,8 @@ import {
   deleteGroup,
   addMemberToGroup,
   deleteMemberFromGroup,
+  deleteLessonFromGroup,
+  addLessonToGroup,
 } from "../controllers/groupsController.js";
 import paths from "../paths/paths.js";
 
@@ -23,6 +25,10 @@ router.put(paths.updateGroupById, updateGroupById);
 router.patch(paths.addGroupToAnyUser, addMemberToGroup);
 
 router.patch(paths.deleteMemberFromGroup, deleteMemberFromGroup);
+
+router.patch(paths.deleteLessonFromGroup, deleteLessonFromGroup);
+
+router.patch(paths.addLessonToGroup, addLessonToGroup);
 
 router.delete(paths.delete, deleteGroup);
 
