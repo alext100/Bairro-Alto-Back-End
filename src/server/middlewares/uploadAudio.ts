@@ -1,9 +1,9 @@
 import multer from "multer";
 import path from "path";
 
-const uploadImages = multer({
+const uploadAudio = multer({
   storage: multer.diskStorage({
-    destination: "images",
+    destination: "audio",
 
     filename: (req, file, callback) => {
       const oldFilename = file.originalname;
@@ -17,7 +17,7 @@ const uploadImages = multer({
       callback(null, newFilename);
     },
   }),
-  limits: { fileSize: 4194304 },
+  limits: { fileSize: 33554432 },
 });
 
-export default uploadImages;
+export default uploadAudio;
