@@ -8,11 +8,13 @@ import {
 import auth from "../middlewares/auth.js";
 import firebase from "../middlewares/firebase.js";
 import uploadImages from "../middlewares/uploadImages.js";
+import uploadAudio from "../middlewares/uploadAudio.js";
 import paths from "../paths/paths.js";
 
 const router = express.Router();
 
 router.post(paths.uploadMedia, auth, uploadImages.array("images"), firebase);
+router.post(paths.uploadAudio, auth, uploadAudio.array("audio"), firebase);
 router.post(paths.create, auth, addLesson);
 
 router.get(paths.getAll, auth, getAllLessons);

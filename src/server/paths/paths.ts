@@ -17,6 +17,7 @@ const paths = {
   updateById: "/update/:id",
   delete: "/delete/:id",
   uploadMedia: "/upload",
+  uploadAudio: "/upload-audio",
   deleteMemberFromGroup: "/delete-group-member/:id",
   deleteLessonFromGroup: "/delete-group-lesson/:id",
   addLessonToGroup: "/add-group-lesson/:id",
