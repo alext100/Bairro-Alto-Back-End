@@ -144,17 +144,19 @@ const deleteLessonFromGroup = async (req: Request, res: Response) => {
   }
 };
 
-const addLessonToGroup = async (req: Request, res: Response) => {
+const toggleLessonInGroup = async (req: Request, res: Response) => {
   const { id: groupId } = req.params;
   const lessonId = req.body.id;
+  const group = await Group.findById(groupId);
+  const operator = group?.lessons.includes(lessonId) ? "$pull" : "$addToSet";
   try {
     const updatedGroup = await Group.findByIdAndUpdate(
       groupId,
-      { $push: { lessons: lessonId } },
+      { [operator]: { lessons: lessonId } },
       { new: true }
     );
     if (!updatedGroup) return res.sendStatus(404);
-    res.json(200);
+    res.json(updatedGroup.lessons);
   } catch (error) {
     (error as ErrorType).code = 500;
     return res.send(error);
@@ -168,7 +170,7 @@ export {
   getOneGroupById,
   updateGroupById,
   addMemberToGroup,
-  addLessonToGroup,
+  toggleLessonInGroup,
   deleteMemberFromGroup,
   deleteLessonFromGroup,
 };
