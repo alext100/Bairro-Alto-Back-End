@@ -9,7 +9,7 @@ interface GroupSchemaTypes {
   homeworkToDo: object;
   lessons: Array<object>;
   groupErrors: Array<object>;
-  info?: Array<object>;
+  info?: object;
 }
 
 const groupSchema = new Schema({
