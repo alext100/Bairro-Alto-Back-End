@@ -2,6 +2,7 @@ import express from "express";
 import {
   addLesson,
   deleteLesson,
+  getAllGroupLessons,
   getAllLessons,
   updateLessonById,
 } from "../controllers/lessonControllers.js";
@@ -18,6 +19,7 @@ router.post(paths.uploadAudio, auth, uploadAudio.array("audio"), firebase);
 router.post(paths.create, auth, addLesson);
 
 router.get(paths.getAll, auth, getAllLessons);
+router.get(paths.getAllGroupLessons, auth, getAllGroupLessons);
 
 router.put(paths.updateById, auth, updateLessonById);
 
