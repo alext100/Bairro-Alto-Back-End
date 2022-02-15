@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import Group from "../../database/models/group.js";
 import Lesson from "../../database/models/lesson.js";
 import { ErrorType } from "../../utils/types.js";
 
@@ -71,4 +72,23 @@ const deleteLesson = async (req: Request, res: Response) => {
   }
 };
 
-export { addLesson, getAllLessons, updateLessonById, deleteLesson };
+const getAllGroupLessons = async (req: Request, res: Response) => {
+  const { id: groupId } = req.params;
+  try {
+    const errors = await Group.findById(groupId)
+      .populate("lessons")
+      .select("lessons");
+    res.json(errors);
+  } catch (error) {
+    res.status(404);
+    return res.send(error);
+  }
+};
+
+export {
+  addLesson,
+  getAllLessons,
+  updateLessonById,
+  deleteLesson,
+  getAllGroupLessons,
+};
