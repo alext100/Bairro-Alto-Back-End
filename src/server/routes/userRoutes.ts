@@ -11,12 +11,13 @@ import {
   getUsers,
 } from "../controllers/userController.js";
 import auth from "../middlewares/auth.js";
+import loginFirebase from "../middlewares/firebase.js";
 import paths from "../paths/paths.js";
 
 const router = express.Router();
 
 router.post(paths.userRegister, createUser);
-router.post(paths.userLogin, loginUser);
+router.post(paths.userLogin, loginUser, loginFirebase);
 
 router.get(paths.getAll, getUsers);
 router.get(paths.getById, getOneUserById);
