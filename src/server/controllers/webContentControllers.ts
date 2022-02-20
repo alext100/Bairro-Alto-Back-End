@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import WebContent from "../../database/models/webContent";
-import { ErrorType } from "../../utils/types";
+import WebContent from "../../database/models/webContent.js";
+import { ErrorType } from "../../utils/types.js";
 
 const getWebContent = async (req: Request, res: Response) => {
   try {
