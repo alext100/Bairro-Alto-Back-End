@@ -2,8 +2,8 @@ import express from "express";
 import {
   getWebContent,
   updateWebContent,
-} from "../controllers/webContentControllers";
-import paths from "../paths/paths";
+} from "../controllers/webContentControllers.js";
+import paths from "../paths/paths.js";
 
 const router = express.Router();
 
