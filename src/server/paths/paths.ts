@@ -22,6 +22,8 @@ const paths = {
   deleteLessonFromGroup: "/delete-group-lesson/:id",
   addLessonToGroup: "/add-group-lesson/:id",
   getAllGroupLessons: "/get-group-lessons/:id",
+  getWebContent: "/get-web-content",
+  updateWebContent: "/update-web-content",
 };
 
 export default paths;
