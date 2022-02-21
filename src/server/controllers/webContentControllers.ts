@@ -30,4 +30,20 @@ const updateWebContent = async (req: Request, res: Response) => {
   }
 };
 
-export { getWebContent, updateWebContent };
+const deletePost = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { collectionId } = req.body;
+  try {
+    const response = await WebContent.updateMany(
+      { _id: collectionId },
+      { $pull: { posts: { _id: id } } }
+    );
+    if (!response) return res.sendStatus(404);
+    res.json(200);
+  } catch (error) {
+    res.status(500);
+    return res.send(error);
+  }
+};
+
+export { getWebContent, updateWebContent, deletePost };
