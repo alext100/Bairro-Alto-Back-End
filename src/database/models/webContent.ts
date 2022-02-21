@@ -2,13 +2,22 @@ import mongoose from "mongoose";
 
 const { model, Schema } = mongoose;
 
-interface WebContentSchemaTypes {
+interface PostTypes {
   title: string;
   body: string;
   category: string;
 }
 
-const webContentSchema = new Schema({
+interface CategoryTypes {
+  title: string;
+  slug: string;
+}
+interface WebContentTypes {
+  posts: Array<PostTypes>;
+  categories: Array<CategoryTypes>;
+}
+
+const postSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -23,10 +32,26 @@ const webContentSchema = new Schema({
   },
 });
 
-const WebContent = model<WebContentSchemaTypes>(
+const categorySchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  slug: {
+    type: String,
+    required: true,
+  },
+});
+
+const webContentSchema = new Schema({
+  posts: [postSchema],
+  categories: [categorySchema],
+});
+
+const webContent = model<WebContentTypes>(
   "WebContent",
   webContentSchema,
-  "WebContentSchemas"
+  "WebContents"
 );
 
-export default WebContent;
+export default webContent;
