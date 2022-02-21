@@ -23,7 +23,8 @@ const paths = {
   addLessonToGroup: "/add-group-lesson/:id",
   getAllGroupLessons: "/get-group-lessons/:id",
   getWebContent: "/get-web-content",
-  updateWebContent: "/update-web-content",
+  updateWebContent: "/update-web-content/:id",
+  deleteWebContent: "/delete-web-content/:id",
 };
 
 export default paths;
