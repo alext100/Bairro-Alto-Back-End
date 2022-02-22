@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  deleteCategory,
   deletePost,
   getWebContent,
   updateWebContent,
@@ -13,6 +14,7 @@ router.get(paths.getWebContent, auth, getWebContent);
 
 router.put(paths.updateWebContent, auth, updateWebContent);
 
-router.delete(paths.deleteWebContent, auth, deletePost);
+router.delete(paths.deletePost, auth, deletePost);
+router.delete(paths.deleteCategory, auth, deleteCategory);
 
 export default router;
