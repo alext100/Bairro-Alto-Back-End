@@ -62,4 +62,35 @@ const deleteCategory = async (req: Request, res: Response) => {
   }
 };
 
-export { getWebContent, updateWebContent, deletePost, deleteCategory };
+const updatePostById = async (req: Request, res: Response) => {
+  const { post } = req.body;
+  const { collectionId } = req.body;
+  try {
+    const updatedPost = await WebContent.updateOne(
+      { _id: collectionId, [`posts._id`]: post.id },
+      {
+        $set: {
+          [`posts.$.body`]: post.body,
+          [`posts.$.title`]: post.title,
+          [`posts.$.category`]: post.category,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+    if (!updatedPost.acknowledged) return res.sendStatus(404);
+    return res.status(201).json(updatedPost);
+  } catch (error) {
+    (error as ErrorType).code = 500;
+    return res.send(error);
+  }
+};
+
+export {
+  getWebContent,
+  updateWebContent,
+  deletePost,
+  deleteCategory,
+  updatePostById,
+};
