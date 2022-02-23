@@ -24,6 +24,7 @@ const paths = {
   getAllGroupLessons: "/get-group-lessons/:id",
   getWebContent: "/get-web-content",
   updateWebContent: "/update-web-content/:id",
+  updatePost: "/update-post/:id",
   deletePost: "/delete-post/:id",
   deleteCategory: "/delete-category/:id",
 };
