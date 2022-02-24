@@ -1,8 +1,8 @@
 import { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import User from "../../database/models/user";
-import { ErrorType, IUserRequest } from "../../utils/types";
+import User from "../../database/models/user.js";
+import { ErrorType, IUserRequest } from "../../utils/types.js";
 
 dotenv.config();
 
