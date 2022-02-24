@@ -41,5 +41,5 @@ jobs:
       - name: Check review_app_url
         run: |
           echo "Outputs :"
-          echo "- App name: ${{ steps.review_app_test.outputs.bairro-alto }}"
-          echo "- App url: ${{ steps.review_app_test.outputs.https://bairro-alto.herokuapp.com }}"
+          echo "- App name: ${{ steps.review_app_test.outputs.review_app_name }}"
+          echo "- App url: ${{ steps.review_app_test.outputs.review_app_url }}"
