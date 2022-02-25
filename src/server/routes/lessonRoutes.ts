@@ -12,10 +12,17 @@ import uploadImages from "../middlewares/uploadImages.js";
 import uploadAudio from "../middlewares/uploadAudio.js";
 import paths from "../paths/paths.js";
 import teacherAuth from "../middlewares/teacherAuth.js";
+import sharpImages from "../middlewares/sharpImages.js";
 
 const router = express.Router();
 
-router.post(paths.uploadMedia, auth, uploadImages.array("images"), firebase);
+router.post(
+  paths.uploadMedia,
+  auth,
+  uploadImages.array("images"),
+  sharpImages,
+  firebase
+);
 router.post(paths.uploadAudio, auth, uploadAudio.array("audio"), firebase);
 router.post(paths.create, auth, teacherAuth, addLesson);
 
