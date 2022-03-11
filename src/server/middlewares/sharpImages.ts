@@ -17,6 +17,7 @@ const sharpImages = async (
       const fileName = file.filename.split(".")[0];
       const newFile = await sharp(file.path)
         .toFormat("webp")
+        .withMetadata()
         .toFile(`images/${fileName}.webp`);
       req.body.images.push(`${fileName}.webp`);
       req.files[index].path = `images/${fileName}.webp`;
