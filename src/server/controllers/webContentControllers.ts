@@ -73,6 +73,7 @@ const updatePostById = async (req: Request, res: Response) => {
           [`posts.$.body`]: post.body,
           [`posts.$.title`]: post.title,
           [`posts.$.category`]: post.category,
+          [`posts.$.image`]: post.image,
         },
       },
       {
