@@ -28,7 +28,9 @@ const corsConfig = {
 
 app.use(cors(corsConfig));
 app.use(morgan("dev"));
-app.use(express.json());
+
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb" }));
 
 export const initializeServer = (port: PortType) =>
   new Promise((resolve, reject) => {
