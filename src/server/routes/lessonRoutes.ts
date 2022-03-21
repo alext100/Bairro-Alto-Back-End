@@ -2,6 +2,7 @@ import express from "express";
 import {
   addLesson,
   deleteLesson,
+  getAllCourseNames,
   getAllGroupLessons,
   getAllLessons,
   updateLessonById,
@@ -28,6 +29,7 @@ router.post(paths.create, auth, teacherAuth, addLesson);
 
 router.get(paths.getAll, auth, getAllLessons);
 router.get(paths.getAllGroupLessons, auth, getAllGroupLessons);
+router.get(paths.getAllCourseNames, auth, getAllCourseNames);
 
 router.put(paths.updateById, auth, teacherAuth, updateLessonById);
 

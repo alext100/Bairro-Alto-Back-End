@@ -22,6 +22,7 @@ const paths = {
   deleteLessonFromGroup: "/delete-group-lesson/:id",
   addLessonToGroup: "/add-group-lesson/:id",
   getAllGroupLessons: "/get-group-lessons/:id",
+  getAllCourseNames: "/get-all-course-names",
   getWebContent: "/get-web-content",
   updateWebContent: "/update-web-content/:id",
   updatePost: "/update-post/:id",
