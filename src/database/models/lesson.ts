@@ -12,6 +12,7 @@ interface LessonSchemaTypes {
   audios?: Array<string>;
   date?: string;
   info?: Array<object>;
+  courseName?: string;
 }
 
 const LessonSchema = new Schema({
@@ -56,6 +57,10 @@ const LessonSchema = new Schema({
       type: Object,
     },
   ],
+  courseName: {
+    type: String,
+    required: false,
+  },
 });
 
 const Lesson = model<LessonSchemaTypes>("Lesson", LessonSchema, "Lessons");
