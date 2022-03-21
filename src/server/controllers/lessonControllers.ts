@@ -14,6 +14,7 @@ const addLesson = async (req: Request, res: Response) => {
     videos,
     audios,
     info,
+    courseName,
   } = req.body;
   try {
     const newLesson = await Lesson.create({
@@ -26,6 +27,7 @@ const addLesson = async (req: Request, res: Response) => {
       videos,
       audios,
       info,
+      courseName,
     });
     if (!newLesson) return res.sendStatus(404);
     return res.json(newLesson);
@@ -40,6 +42,16 @@ const getAllLessons = async (req: Request, res: Response) => {
     const allLessons = await Lesson.find();
     if (!allLessons) return res.sendStatus(404);
     res.json(allLessons);
+  } catch (error) {
+    (error as ErrorType).code = 500;
+    return res.send(error);
+  }
+};
+const getAllCourseNames = async (req: Request, res: Response) => {
+  try {
+    const allCourseNames = await Lesson.find().select("courseName");
+    if (!allCourseNames) return res.sendStatus(404);
+    res.json(allCourseNames);
   } catch (error) {
     (error as ErrorType).code = 500;
     return res.send(error);
@@ -91,4 +103,5 @@ export {
   updateLessonById,
   deleteLesson,
   getAllGroupLessons,
+  getAllCourseNames,
 };
