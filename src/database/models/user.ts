@@ -16,6 +16,8 @@ interface UserSchemaTypes {
   image: string;
   homeworkToCheck?: Array<object>;
   info?: Array<object>;
+  status?: string;
+  confirmationCode?: string;
 }
 
 const userSchema = new Schema({
@@ -84,6 +86,15 @@ const userSchema = new Schema({
       type: Object,
     },
   ],
+  status: {
+    type: String,
+    enum: ["Pending", "Active"],
+    default: "Pending",
+  },
+  confirmationCode: {
+    type: String,
+    unique: true,
+  },
 });
 
 const User = model<UserSchemaTypes>("User", userSchema, "Users");
