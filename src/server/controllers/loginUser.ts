@@ -41,4 +41,25 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const verifyUser = async (req: Request, res: Response) => {
+  await User.findOne({
+    confirmationCode: req.params.confirmationCode,
+  })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({ message: "User Not found." });
+      }
+      user.status = "Active";
+      user.save((err) => {
+        if (err) {
+          res.status(500).send({ message: err });
+        }
+      });
+    })
+    .catch((error) => {
+      (error as ErrorType).code = 500;
+      return res.send(error);
+    });
+};
+
 export { loginUser, verifyUser, sendConfirmEmailOneMoreTime };
