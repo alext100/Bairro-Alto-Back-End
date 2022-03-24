@@ -1,5 +1,7 @@
 const paths = {
   userLogin: "/login",
+  verifyUser: "/confirm/:confirmationCode",
+  sendConfirmEmailOneMoreTime: "/confirm/repeat-email/:email",
   userRegister: "/register",
   getAll: "/get-all",
   getAllTeachers: "/get-all-teachers",
