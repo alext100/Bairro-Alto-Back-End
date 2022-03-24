@@ -62,4 +62,22 @@ const verifyUser = async (req: Request, res: Response) => {
     });
 };
 
+const sendConfirmEmailOneMoreTime = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { email } = req.params;
+  const user = await User.findOne({ email });
+  if (!user) {
+    const error: ErrorType = new Error("Wrong email");
+    error.code = 401;
+    next(error);
+  } else if (user.status !== "Active") {
+    debug(chalk.red("Not active, sending one more email with code"));
+    sendConfirmationEmail(user.firstName, user.email, user.confirmationCode);
+    return res.status(200);
+  }
+};
+
 export { loginUser, verifyUser, sendConfirmEmailOneMoreTime };
