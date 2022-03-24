@@ -1,6 +1,10 @@
 import express from "express";
 import createUser from "../controllers/createUser.js";
-import loginUser from "../controllers/loginUser.js";
+import {
+  loginUser,
+  sendConfirmEmailOneMoreTime,
+  verifyUser,
+} from "../controllers/loginUser.js";
 import {
   addGroupToTeacher,
   deleteGroupFromUser,
@@ -19,6 +23,8 @@ const router = express.Router();
 router.post(paths.userRegister, createUser);
 router.post(paths.userLogin, loginUser, loginFirebase);
 
+router.get(paths.verifyUser, verifyUser);
+router.get(paths.sendConfirmEmailOneMoreTime, sendConfirmEmailOneMoreTime);
 router.get(paths.getAll, getUsers);
 router.get(paths.getById, getOneUserById);
 router.get(paths.getAllTeachers, getAllTeachers);

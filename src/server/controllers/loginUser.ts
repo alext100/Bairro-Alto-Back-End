@@ -5,6 +5,7 @@ import getDebug from "debug";
 import chalk from "chalk";
 import User from "../../database/models/user.js";
 import { ErrorType } from "../../utils/types.js";
+import sendConfirmationEmail from "./sendConfirmationEmail.js";
 
 const debug = getDebug("bairro:login");
 debug.enabled = true;
@@ -18,13 +19,20 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     error.code = 401;
     next(error);
   } else {
-    debug(chalk.green("An user is logged in"));
+    debug(chalk.green("An user is logging in"));
     const rightPassword = await bcrypt.compare(password, user.password);
     if (!rightPassword) {
+      debug(chalk.red("Wrong password"));
       const error: ErrorType = new Error("Wrong credentials");
       error.code = 401;
       next(error);
-    } else {
+    } else if (user.status !== "Active") {
+      debug(chalk.red("Not active"));
+      const error: ErrorType = new Error("Invalid token specified");
+      error.code = 401;
+      return res.send(error);
+    } else if (user.status === "Active") {
+      debug(chalk.red("Is active, logged in"));
       const token = jwt.sign({ email, id: user.id }, secretHash, {
         expiresIn: 72 * 60 * 60,
       });
@@ -33,4 +41,43 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default loginUser;
+const verifyUser = async (req: Request, res: Response) => {
+  await User.findOne({
+    confirmationCode: req.params.confirmationCode,
+  })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({ message: "User Not found." });
+      }
+      user.status = "Active";
+      user.save((err) => {
+        if (err) {
+          res.status(500).send({ message: err });
+        }
+      });
+    })
+    .catch((error) => {
+      (error as ErrorType).code = 500;
+      return res.send(error);
+    });
+};
+
+const sendConfirmEmailOneMoreTime = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { email } = req.params;
+  const user = await User.findOne({ email });
+  if (!user) {
+    const error: ErrorType = new Error("Wrong email");
+    error.code = 401;
+    next(error);
+  } else if (user.status !== "Active") {
+    debug(chalk.red("Not active, sending one more email with code"));
+    sendConfirmationEmail(user.firstName, user.email, user.confirmationCode);
+    return res.status(200);
+  }
+};
+
+export { loginUser, verifyUser, sendConfirmEmailOneMoreTime };
