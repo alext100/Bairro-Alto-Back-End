@@ -31,6 +31,7 @@ const paths = {
   deletePost: "/delete-post/:id",
   deleteCategory: "/delete-category/:id",
   updateUser: "/update-user/:id",
+  changePassword: "/change-password",
 };
 
 export default paths;
