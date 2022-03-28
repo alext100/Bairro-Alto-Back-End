@@ -80,4 +80,31 @@ const sendConfirmEmailOneMoreTime = async (
   }
 };
 
-export { loginUser, verifyUser, sendConfirmEmailOneMoreTime };
+const changePassword = async (req: Request, res: Response) => {
+  const user = req.body;
+  const secretHash: string = process.env.GOOGLE_MAIL_SECRET_HASH as string;
+  const token = jwt.sign({ email: req.body.email }, secretHash);
+  const userToUpdate = {
+    password: await bcrypt.hash(user.password, 10),
+    confirmationCode: token,
+    status: "Pending",
+  };
+  try {
+    const updatedUser = await User.findByIdAndUpdate(user.id, userToUpdate, {
+      new: true,
+    });
+    if (!updatedUser) return res.sendStatus(404);
+    sendConfirmationEmail(
+      updatedUser.firstName,
+      updatedUser.email,
+      updatedUser.confirmationCode
+    );
+    return res.status(201).json(updatedUser);
+  } catch (error) {
+    (error as ErrorType).code = 400;
+    (error as ErrorType).message = "Bad credentials provided";
+    return res.send(error);
+  }
+};
+
+export { loginUser, verifyUser, sendConfirmEmailOneMoreTime, changePassword };
