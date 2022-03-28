@@ -30,6 +30,7 @@ const paths = {
   updatePost: "/update-post/:id",
   deletePost: "/delete-post/:id",
   deleteCategory: "/delete-category/:id",
+  updateUser: "/update-user/:id",
 };
 
 export default paths;

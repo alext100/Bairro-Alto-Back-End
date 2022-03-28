@@ -13,6 +13,7 @@ import {
   getAllTeachersGroups,
   getOneUserById,
   getUsers,
+  updateUser,
 } from "../controllers/userController.js";
 import auth from "../middlewares/auth.js";
 import loginFirebase from "../middlewares/firebase.js";
@@ -34,5 +35,7 @@ router.patch(paths.addGroupToUser, auth, addGroupToTeacher);
 router.patch(paths.deleteGroupFromUser, auth, deleteGroupFromUser);
 
 router.delete(paths.delete, deleteUser);
+
+router.put(paths.updateUser, updateUser);
 
 export default router;
