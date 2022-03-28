@@ -1,6 +1,7 @@
 import express from "express";
 import createUser from "../controllers/createUser.js";
 import {
+  changePassword,
   loginUser,
   sendConfirmEmailOneMoreTime,
   verifyUser,
@@ -37,5 +38,6 @@ router.patch(paths.deleteGroupFromUser, auth, deleteGroupFromUser);
 router.delete(paths.delete, deleteUser);
 
 router.put(paths.updateUser, updateUser);
+router.put(paths.changePassword, auth, changePassword);
 
 export default router;
