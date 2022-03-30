@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import * as express from "express";
+import { SendMailOptions } from "nodemailer";
 
 export type ErrorType = {
   code?: string | number;
@@ -23,4 +24,11 @@ export interface IUserRequest extends express.Request {
   images?: any;
   files?: any;
   file?: any;
+}
+
+export interface ISendMailOptions extends SendMailOptions {
+  template?: string;
+  context?: {
+    [name: string]: any;
+  };
 }
