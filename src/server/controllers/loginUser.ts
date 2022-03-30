@@ -5,7 +5,7 @@ import getDebug from "debug";
 import chalk from "chalk";
 import User from "../../database/models/user.js";
 import { ErrorType } from "../../utils/types.js";
-import sendConfirmationEmail from "./sendConfirmationEmail.js";
+import sendEmail from "../lib/sendEmail.js";
 
 const debug = getDebug("bairro:login");
 debug.enabled = true;
@@ -75,7 +75,17 @@ const sendConfirmEmailOneMoreTime = async (
     next(error);
   } else if (user.status !== "Active") {
     debug(chalk.red("Not active, sending one more email with code"));
-    sendConfirmationEmail(user.firstName, user.email, user.confirmationCode);
+    const mail = [
+      user.email,
+      "Повторное письмо для активации аккаунта",
+      `Чтобы подтвердить почтовый адрес и активировать аккаунт, перейдите по ссылке: https://bairro-alto.web.app/confirm/${user.confirmationCode}`,
+      "confirmation",
+      {
+        name: user.firstName,
+        confirmationCode: user.confirmationCode,
+      },
+    ] as const;
+    sendEmail(...mail);
     return res.status(200);
   }
 };
@@ -94,11 +104,17 @@ const changePassword = async (req: Request, res: Response) => {
       new: true,
     });
     if (!updatedUser) return res.sendStatus(404);
-    sendConfirmationEmail(
-      updatedUser.firstName,
-      updatedUser.email,
-      updatedUser.confirmationCode
-    );
+    const mail = [
+      user.email,
+      "Смена пароля",
+      `Чтобы сменить пароль, перейдите по ссылке: https://bairro-alto.web.app/confirm/${user.confirmationCode}`,
+      "confirmation",
+      {
+        name: updatedUser.firstName,
+        confirmationCode: updatedUser.confirmationCode,
+      },
+    ] as const;
+    sendEmail(...mail);
     return res.status(201).json(updatedUser);
   } catch (error) {
     (error as ErrorType).code = 400;
