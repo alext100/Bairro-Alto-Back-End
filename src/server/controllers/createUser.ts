@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../../database/models/user.js";
 import { ErrorType } from "../../utils/types.js";
-import sendConfirmationEmail from "./sendConfirmationEmail.js";
+import sendEmail from "../lib/sendEmail.js";
 
 dotenv.config();
 
@@ -43,7 +43,17 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
       confirmationCode: token,
     });
     res.status(201).json(user);
-    sendConfirmationEmail(user.firstName, user.email, user.confirmationCode);
+    const mail = [
+      user.email,
+      "Активация аккаунта",
+      `Чтобы подтвердить почтовый адрес и активировать аккаунт, перейдите по ссылке: https://bairro-alto.web.app/confirm/${user.confirmationCode}`,
+      "confirmation",
+      {
+        name: user.firstName,
+        confirmationCode: user.confirmationCode,
+      },
+    ] as const;
+    sendEmail(...mail);
   } catch {
     const error: ErrorType = new Error("Bad credentials provided");
     error.code = 400;
