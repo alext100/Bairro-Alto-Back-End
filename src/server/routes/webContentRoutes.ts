@@ -9,10 +9,11 @@ import {
 import adminAuth from "../middlewares/adminAuth.js";
 import auth from "../middlewares/auth.js";
 import paths from "../paths/paths.js";
+import configureFirebaseBucketCors from "../middlewares/configureFirebaseBucketCors.js";
 
 const router = express.Router();
 
-router.get(paths.getWebContent, getWebContent);
+router.get(paths.getWebContent, configureFirebaseBucketCors, getWebContent);
 
 router.put(paths.updateWebContent, auth, adminAuth, updateWebContent);
 router.put(paths.updatePost, auth, adminAuth, updatePostById);
