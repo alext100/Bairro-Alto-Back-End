@@ -10,6 +10,7 @@ const storage = new Storage();
 const bucketName = "bairro-alto.appspot.com";
 const origin = [
   "http://localhost/",
+  "http://localhost:8080/",
   "https://bairro-alto.netlify.app/",
   "https://bairro-alto.web.app/",
 ];
