@@ -22,14 +22,12 @@ const groupSchema = new Schema({
     {
       type: [Types.ObjectId],
       ref: "User",
-      unique: true,
     },
   ],
   teachers: [
     {
       type: [Types.ObjectId],
       ref: "User",
-      unique: true,
     },
   ],
   homeworkToDo: [
@@ -41,7 +39,6 @@ const groupSchema = new Schema({
     {
       type: [Types.ObjectId],
       ref: "Lesson",
-      unique: true,
     },
   ],
   groupErrors: [
