@@ -16,15 +16,9 @@ const createGroup = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { groupName, members, homeworkToDo, lessons, groupErrors } = req.body;
+  const group = req.body;
   try {
-    const newGroup = await Group.create({
-      groupName,
-      members,
-      homeworkToDo,
-      lessons,
-      groupErrors,
-    });
+    const newGroup = await Group.create(group);
     res.status(201).json(newGroup);
   } catch (error) {
     (error as ErrorType).code = 400;
