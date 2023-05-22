@@ -8,6 +8,10 @@ const { Types } = mongoose;
 
 const getUsers = async (req: Request, res: Response) => {
   const users = await User.find();
+  for (const user of users) {
+    user.password = "";
+    user.confirmationCode = "";
+  }
   res.json(users);
 };
 
