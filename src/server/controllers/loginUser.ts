@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { Request, Response, NextFunction } from "express";
-import getDebug from "debug";
 import chalk from "chalk";
+import getDebug from "debug";
+import { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
 import User from "../../database/models/user.js";
 import { ErrorType } from "../../utils/types.js";
 import sendEmail from "../lib/sendEmail.js";
@@ -50,6 +50,7 @@ const verifyUser = async (req: Request, res: Response) => {
         return res.status(404).send({ message: "User Not found." });
       }
       user.status = "Active";
+      user.confirmationCode = "";
       user.save((err) => {
         if (err) {
           res.status(500).send({ message: err });
@@ -85,8 +86,13 @@ const sendConfirmEmailOneMoreTime = async (
         confirmationCode: user.confirmationCode,
       },
     ] as const;
-    sendEmail(...mail);
-    return res.status(200);
+    try {
+      await sendEmail(...mail);
+      return res.status(200);
+    } catch (error) {
+      debug(chalk.red("Error on send email: ", error));
+      return res.send(error);
+    }
   }
 };
 
@@ -114,7 +120,7 @@ const changePassword = async (req: Request, res: Response) => {
         confirmationCode: updatedUser.confirmationCode,
       },
     ] as const;
-    sendEmail(...mail);
+    await sendEmail(...mail);
     return res.status(201).json(updatedUser);
   } catch (error) {
     (error as ErrorType).code = 400;
