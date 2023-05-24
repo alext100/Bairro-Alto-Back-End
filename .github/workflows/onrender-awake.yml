@@ -16,16 +16,18 @@ jobs:
           URL: "https://bairro-alto-back-end.onrender.com/web-content/get-web-content"
 
       - name: Check HTTP status code
+        id: check-status
         run: |
           echo "${{ steps.heroku-awake.outputs.response }}"
           if [[ "${{ steps.heroku-awake.outputs.response }}" =~ "503" ]]; then
             echo "Error 503 detected. Rerunning workflow..."
-            echo "::set-output name=retry::true"
+            echo "retry=true" >> $RESPONSE_ENV
           else
-            echo "::set-output name=retry::false"
+            echo "retry=false" >> $RESPONSE_ENV
           fi
+
       - name: Rerun workflow
-        if: steps.heroku-awake.outputs.retry == 'true'
+        if: env.retry == 'true'
         uses: mikeesto/heroku-awake@1.0.0
         with:
           URL: "https://bairro-alto-back-end.onrender.com/web-content/get-web-content"
