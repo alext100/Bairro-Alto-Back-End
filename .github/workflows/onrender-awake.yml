@@ -27,7 +27,6 @@ jobs:
 
       - name: Rerun workflow
         if: steps.check-status.outputs.retry == 'true'
-        id: heroku-awake
         uses: mikeesto/heroku-awake@1.0.0
         with:
           URL: "https://bairro-alto-back-end.onrender.com/web-content/get-web-content"
