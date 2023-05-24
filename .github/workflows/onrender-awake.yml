@@ -9,6 +9,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: mikeesto/heroku-awake@1.0.0
+      - name: Heroku Awake
+        id: heroku-awake
+        uses: mikeesto/heroku-awake@1.0.0
+        with:
+          URL: "https://bairro-alto-back-end.onrender.com/web-content/get-web-content"
+
+      - name: Check HTTP status code
+        run: |
+          echo "${{ steps.heroku-awake.outputs.response }}"
+          if [[ ${{ steps.heroku-awake.outputs.response }} == *"503"* ]]; then
+            echo "Error 503 detected. Rerunning workflow..."
+            echo "::set-output name=retry::true"
+          else
+            echo "::set-output name=retry::false"
+          fi
+
+      - name: Rerun workflow
+        if: steps.check-status.outputs.retry == 'true'
+        id: heroku-awake
+        uses: mikeesto/heroku-awake@1.0.0
         with:
           URL: "https://bairro-alto-back-end.onrender.com/web-content/get-web-content"
