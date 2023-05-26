@@ -1,18 +1,18 @@
-import mongoose from "mongoose";
+import mongoose, { type Types, type Document } from "mongoose";
 
-const { model, Schema, Types } = mongoose;
+const { Schema, model } = mongoose;
 
-interface GroupSchemaTypes {
+interface IGroup extends Document {
   groupName: string;
-  members: Array<object>;
-  teachers: Array<object>;
-  homeworkToDo: object;
-  lessons: Array<object>;
-  groupErrors: Array<object>;
-  info?: object;
+  members: Types.ObjectId[];
+  teachers: Types.ObjectId[];
+  homeworkToDo: object[];
+  lessons: Types.ObjectId[];
+  groupErrors: Types.ObjectId[];
+  info?: object[];
 }
 
-const groupSchema = new Schema({
+const groupSchema = new Schema<IGroup>({
   groupName: {
     type: String,
     required: true,
@@ -20,13 +20,15 @@ const groupSchema = new Schema({
   },
   members: [
     {
-      type: [Types.ObjectId],
+      type: Schema.Types.ObjectId,
       ref: "User",
+      unique: false,
+      required: false,
     },
   ],
   teachers: [
     {
-      type: [Types.ObjectId],
+      type: Schema.Types.ObjectId,
       ref: "User",
     },
   ],
@@ -37,13 +39,13 @@ const groupSchema = new Schema({
   ],
   lessons: [
     {
-      type: [Types.ObjectId],
+      type: Schema.Types.ObjectId,
       ref: "Lesson",
     },
   ],
   groupErrors: [
     {
-      type: [Types.ObjectId],
+      type: Schema.Types.ObjectId,
       ref: "Error",
     },
   ],
@@ -54,6 +56,6 @@ const groupSchema = new Schema({
   ],
 });
 
-const Group = model<GroupSchemaTypes>("Group", groupSchema, "Groups");
+const Group = model<IGroup>("Group", groupSchema, "Groups");
 
 export default Group;
